@@ -11,6 +11,11 @@
 		4A6577CA2A1F777800A1E510 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6577C92A1F777800A1E510 /* ContentView.swift */; };
 		4A6577CC2A1F777900A1E510 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A6577CB2A1F777900A1E510 /* Assets.xcassets */; };
 		4A6577CF2A1F777900A1E510 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A6577CE2A1F777900A1E510 /* Preview Assets.xcassets */; };
+		4A6577D82A1F811A00A1E510 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6577D72A1F811A00A1E510 /* Item.swift */; };
+		4A6577DA2A1F819300A1E510 /* ItemsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6577D92A1F819300A1E510 /* ItemsView.swift */; };
+		4A6577DC2A1F81A600A1E510 /* ItemsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6577DB2A1F81A600A1E510 /* ItemsViewModel.swift */; };
+		4A6577DE2A1F82C500A1E510 /* Bundle-Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6577DD2A1F82C500A1E510 /* Bundle-Decodable.swift */; };
+		4A7D77AB2A1F9B50003D4F57 /* Extension-URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7D77AA2A1F9B50003D4F57 /* Extension-URLSession.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +25,12 @@
 		4A6577CB2A1F777900A1E510 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4A6577CE2A1F777900A1E510 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		4A6577D02A1F777900A1E510 /* HabBuddy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HabBuddy.entitlements; sourceTree = "<group>"; };
+		4A6577D62A1F789A00A1E510 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		4A6577D72A1F811A00A1E510 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		4A6577D92A1F819300A1E510 /* ItemsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsView.swift; sourceTree = "<group>"; };
+		4A6577DB2A1F81A600A1E510 /* ItemsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsViewModel.swift; sourceTree = "<group>"; };
+		4A6577DD2A1F82C500A1E510 /* Bundle-Decodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle-Decodable.swift"; sourceTree = "<group>"; };
+		4A7D77AA2A1F9B50003D4F57 /* Extension-URLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension-URLSession.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +47,7 @@
 		4A6577BB2A1F777800A1E510 = {
 			isa = PBXGroup;
 			children = (
+				4A6577DB2A1F81A600A1E510 /* ItemsViewModel.swift */,
 				4A6577C62A1F777800A1E510 /* HabBuddy */,
 				4A6577C52A1F777800A1E510 /* Products */,
 			);
@@ -52,9 +64,14 @@
 		4A6577C62A1F777800A1E510 /* HabBuddy */ = {
 			isa = PBXGroup;
 			children = (
+				4A6577D62A1F789A00A1E510 /* Info.plist */,
 				4A6577C72A1F777800A1E510 /* HabBuddyApp.swift */,
 				4A6577C92A1F777800A1E510 /* ContentView.swift */,
 				4A6577CB2A1F777900A1E510 /* Assets.xcassets */,
+				4A6577D72A1F811A00A1E510 /* Item.swift */,
+				4A6577DD2A1F82C500A1E510 /* Bundle-Decodable.swift */,
+				4A7D77AA2A1F9B50003D4F57 /* Extension-URLSession.swift */,
+				4A6577D92A1F819300A1E510 /* ItemsView.swift */,
 				4A6577D02A1F777900A1E510 /* HabBuddy.entitlements */,
 				4A6577CD2A1F777900A1E510 /* Preview Content */,
 			);
@@ -79,6 +96,7 @@
 				4A6577C02A1F777800A1E510 /* Sources */,
 				4A6577C12A1F777800A1E510 /* Frameworks */,
 				4A6577C22A1F777800A1E510 /* Resources */,
+				4A6577DF2A1F870100A1E510 /* Lint */,
 			);
 			buildRules = (
 			);
@@ -134,13 +152,40 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		4A6577DF2A1F870100A1E510 /* Lint */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Lint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nexport PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		4A6577C02A1F777800A1E510 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A6577DC2A1F81A600A1E510 /* ItemsViewModel.swift in Sources */,
 				4A6577CA2A1F777800A1E510 /* ContentView.swift in Sources */,
+				4A6577D82A1F811A00A1E510 /* Item.swift in Sources */,
 				4A6577C82A1F777800A1E510 /* HabBuddyApp.swift in Sources */,
+				4A7D77AB2A1F9B50003D4F57 /* Extension-URLSession.swift in Sources */,
+				4A6577DA2A1F819300A1E510 /* ItemsView.swift in Sources */,
+				4A6577DE2A1F82C500A1E510 /* Bundle-Decodable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,6 +319,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HabBuddy/Info.plist;
+				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -301,6 +348,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HabBuddy/Info.plist;
+				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

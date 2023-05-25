@@ -10,8 +10,12 @@ import SwiftUI
 @main
 struct HabBuddyApp: App {
     var body: some Scene {
-        WindowGroup {
+        MenuBarExtra {
             ContentView()
+        } label: {
+            Label("Label", systemImage: "note.text")
+                .labelStyle(.titleAndIcon)
         }
+        .menuBarExtraStyle(.window)
     }
 }
