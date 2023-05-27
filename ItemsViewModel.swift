@@ -32,10 +32,11 @@ import Foundation
             print("ERROR: \(jsonError)")
         }
 
-        return items
+        return items.sorted(by: { $0.name < $1.name })
     }
 
     func refresh() async {
         items = await getItems()
     }
+
 }

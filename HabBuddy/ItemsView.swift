@@ -12,7 +12,12 @@ struct ItemsView: View {
 
     var body: some View {
         List(viewModel.items) { item in
-            Text(item.name)
+            HStack {
+                Text(item.name)
+                Spacer()
+                Text(item.state ?? "")
+            }
+            .font(.subheadline)
         }
         .onAppear {
             Task {

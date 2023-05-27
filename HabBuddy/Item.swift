@@ -38,7 +38,7 @@ struct Metadata: Codable {
 // MARK: - StateDescription
 struct StateDescription: Codable {
     let minimum, maximum, step: Int?
-    let pattern: String
+    let pattern: String?
     let readOnly: Bool
     let options: [Option]
 }
