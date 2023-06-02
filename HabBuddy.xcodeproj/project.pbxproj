@@ -11,10 +11,10 @@
 		4A6577CA2A1F777800A1E510 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6577C92A1F777800A1E510 /* ContentView.swift */; };
 		4A6577CC2A1F777900A1E510 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A6577CB2A1F777900A1E510 /* Assets.xcassets */; };
 		4A6577CF2A1F777900A1E510 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A6577CE2A1F777900A1E510 /* Preview Assets.xcassets */; };
-		4A7D77DA2A2A28C9003D4F57 /* ThingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7D77D92A2A28C9003D4F57 /* ThingsView.swift */; };
-		4A7D77DC2A2A28D7003D4F57 /* ThingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7D77DB2A2A28D7003D4F57 /* ThingsViewModel.swift */; };
+		4A7D77DA2A2A28C9003D4F57 /* ThingsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7D77D92A2A28C9003D4F57 /* ThingsListView.swift */; };
+		4A7D77DC2A2A28D7003D4F57 /* ThingsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7D77DB2A2A28D7003D4F57 /* ThingsListViewModel.swift */; };
 		4A7D77DE2A2A28EA003D4F57 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7D77DD2A2A28EA003D4F57 /* APIService.swift */; };
-		4A7D77E02A2A290C003D4F57 /* Things.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7D77DF2A2A290C003D4F57 /* Things.swift */; };
+		4A7D77E02A2A290C003D4F57 /* Thing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7D77DF2A2A290C003D4F57 /* Thing.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,10 +25,10 @@
 		4A6577CE2A1F777900A1E510 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		4A6577D02A1F777900A1E510 /* HabBuddy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HabBuddy.entitlements; sourceTree = "<group>"; };
 		4A6577D62A1F789A00A1E510 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		4A7D77D92A2A28C9003D4F57 /* ThingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThingsView.swift; sourceTree = "<group>"; };
-		4A7D77DB2A2A28D7003D4F57 /* ThingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThingsViewModel.swift; sourceTree = "<group>"; };
+		4A7D77D92A2A28C9003D4F57 /* ThingsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThingsListView.swift; sourceTree = "<group>"; };
+		4A7D77DB2A2A28D7003D4F57 /* ThingsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThingsListViewModel.swift; sourceTree = "<group>"; };
 		4A7D77DD2A2A28EA003D4F57 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
-		4A7D77DF2A2A290C003D4F57 /* Things.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Things.swift; sourceTree = "<group>"; };
+		4A7D77DF2A2A290C003D4F57 /* Thing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Thing.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,7 +87,7 @@
 		4A7D77D42A2A286D003D4F57 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				4A7D77DF2A2A290C003D4F57 /* Things.swift */,
+				4A7D77DF2A2A290C003D4F57 /* Thing.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -95,7 +95,7 @@
 		4A7D77D52A2A2883003D4F57 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				4A7D77DB2A2A28D7003D4F57 /* ThingsViewModel.swift */,
+				4A7D77DB2A2A28D7003D4F57 /* ThingsListViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -118,7 +118,7 @@
 		4A7D77D82A2A28AA003D4F57 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				4A7D77D92A2A28C9003D4F57 /* ThingsView.swift */,
+				4A7D77D92A2A28C9003D4F57 /* ThingsListView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -218,10 +218,10 @@
 			files = (
 				4A6577CA2A1F777800A1E510 /* ContentView.swift in Sources */,
 				4A7D77DE2A2A28EA003D4F57 /* APIService.swift in Sources */,
-				4A7D77DC2A2A28D7003D4F57 /* ThingsViewModel.swift in Sources */,
+				4A7D77DC2A2A28D7003D4F57 /* ThingsListViewModel.swift in Sources */,
 				4A6577C82A1F777800A1E510 /* HabBuddyApp.swift in Sources */,
-				4A7D77E02A2A290C003D4F57 /* Things.swift in Sources */,
-				4A7D77DA2A2A28C9003D4F57 /* ThingsView.swift in Sources */,
+				4A7D77E02A2A290C003D4F57 /* Thing.swift in Sources */,
+				4A7D77DA2A2A28C9003D4F57 /* ThingsListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
