@@ -19,7 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4A4A90AE2A2B28C100B2362D /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Color.swift; path = HabBuddy/Color.swift; sourceTree = SOURCE_ROOT; };
+		4A4A90AE2A2B28C100B2362D /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Color.swift; path = HabBuddy/Extensions/Color.swift; sourceTree = SOURCE_ROOT; };
 		4A6577C42A1F777800A1E510 /* HabBuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HabBuddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A6577C72A1F777800A1E510 /* HabBuddyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabBuddyApp.swift; sourceTree = "<group>"; };
 		4A6577C92A1F777800A1E510 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -44,14 +44,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4A4A90AD2A2B28A300B2362D /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				4A4A90AE2A2B28C100B2362D /* Color.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
 		4A6577BB2A1F777800A1E510 = {
 			isa = PBXGroup;
 			children = (
@@ -71,11 +63,11 @@
 		4A6577C62A1F777800A1E510 /* HabBuddy */ = {
 			isa = PBXGroup;
 			children = (
+				4AA846CB2A2B3A53001CE3A5 /* Extensions */,
 				4A7D77D82A2A28AA003D4F57 /* Views */,
 				4A7D77D52A2A2883003D4F57 /* ViewModels */,
 				4A7D77D72A2A28A1003D4F57 /* Services */,
 				4A7D77D42A2A286D003D4F57 /* Models */,
-				4A4A90AD2A2B28A300B2362D /* Extensions */,
 				4A6577D62A1F789A00A1E510 /* Info.plist */,
 				4A6577C72A1F777800A1E510 /* HabBuddyApp.swift */,
 				4A6577C92A1F777800A1E510 /* ContentView.swift */,
@@ -124,6 +116,14 @@
 				4A7D77D92A2A28C9003D4F57 /* ThingsListView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		4AA846CB2A2B3A53001CE3A5 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				4A4A90AE2A2B28C100B2362D /* Color.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
