@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 // Source: http://192.168.178.45:8080/rest/things
 
@@ -19,10 +20,17 @@ struct Thing: Codable, Identifiable {
 
     var viewLabel: String { label ?? "No name"}
     var viewStatus: String {
-        if let statusInfoString = statusInfo?.status?.rawValue {
-            return statusInfoString
+        if let statusString = statusInfo?.status?.rawValue {
+            return statusString
         } else {
             return "unknown"
+        }
+    }
+    var viewStatusColor: Color {
+        if let color = statusInfo?.status?.color {
+            return color
+        } else {
+            return Color.theme.unknown
         }
     }
 
@@ -42,4 +50,25 @@ enum Status: String, Codable, CaseIterable {
     case removing = "REMOVING"
     case removed = "REMOVED"
     case unknown = "UNKNOWN"
+
+    var color: Color {
+        switch self {
+        case .offline:
+            return Color.theme.offline
+        case .online:
+            return Color.theme.online
+        case.initializing:
+            return Color.theme.initializing
+        case .uninitialized:
+            return Color.theme.uninitialized
+        case .removing:
+            return Color.theme.removing
+        case .removed:
+            return Color.theme.removed
+        case .unknown:
+            return Color.theme.unknown
+        default:
+            return Color.theme.unknown
+        }
+    }
 }

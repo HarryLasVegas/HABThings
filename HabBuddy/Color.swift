@@ -9,15 +9,17 @@ import Foundation
 import SwiftUI
 
 extension Color {
-    let theme = ColorTheme()
+    static let theme = ColorTheme()
 }
 
 struct ColorTheme {
-    let online = Color.green
+    let online = Color("flatGreen")
     let offline = Color.red
-    let initializing = Color.orange
-    let removing = Color.orange
+    let initializing = Color("flatYellow")
+    let removing = Color("flatYellow")
     let uninitialized = Color.gray
     let unknown = Color.gray
     let removed = Color.gray
+
+    let statusForeground = Color.white
 }

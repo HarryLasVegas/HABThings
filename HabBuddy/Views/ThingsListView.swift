@@ -29,6 +29,11 @@ struct ThingsListView: View {
                                         Text(thing.viewLabel)
                                         Spacer()
                                         Text(thing.viewStatus)
+                                            .padding(2)
+                                            .padding([.leading, .trailing], 5)
+                                            .foregroundColor(Color.theme.statusForeground)
+                                            .background(thing.viewStatusColor)
+                                            .cornerRadius(5)
                                     }
                                 }
                             }

@@ -13,7 +13,7 @@ struct HabBuddyApp: App {
         MenuBarExtra {
             ContentView()
         } label: {
-            Label("Label", systemImage: "note.text")
+            Label("habBuddy", systemImage: "note.text")
                 .labelStyle(.titleAndIcon)
         }
         .menuBarExtraStyle(.window)
