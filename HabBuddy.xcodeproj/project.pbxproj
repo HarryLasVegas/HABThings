@@ -16,6 +16,7 @@
 		4A7D77DC2A2A28D7003D4F57 /* ThingsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7D77DB2A2A28D7003D4F57 /* ThingsListViewModel.swift */; };
 		4A7D77DE2A2A28EA003D4F57 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7D77DD2A2A28EA003D4F57 /* APIService.swift */; };
 		4A7D77E02A2A290C003D4F57 /* Thing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7D77DF2A2A290C003D4F57 /* Thing.swift */; };
+		4AA846CD2A2B3A98001CE3A5 /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA846CC2A2B3A98001CE3A5 /* ViewModifiers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		4A7D77DB2A2A28D7003D4F57 /* ThingsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThingsListViewModel.swift; sourceTree = "<group>"; };
 		4A7D77DD2A2A28EA003D4F57 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		4A7D77DF2A2A290C003D4F57 /* Thing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Thing.swift; sourceTree = "<group>"; };
+		4AA846CC2A2B3A98001CE3A5 /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				4A4A90AE2A2B28C100B2362D /* Color.swift */,
+				4AA846CC2A2B3A98001CE3A5 /* ViewModifiers.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -222,6 +225,7 @@
 				4A6577CA2A1F777800A1E510 /* ContentView.swift in Sources */,
 				4A7D77DE2A2A28EA003D4F57 /* APIService.swift in Sources */,
 				4A4A90AF2A2B28C100B2362D /* Color.swift in Sources */,
+				4AA846CD2A2B3A98001CE3A5 /* ViewModifiers.swift in Sources */,
 				4A7D77DC2A2A28D7003D4F57 /* ThingsListViewModel.swift in Sources */,
 				4A6577C82A1F777800A1E510 /* HabBuddyApp.swift in Sources */,
 				4A7D77E02A2A290C003D4F57 /* Thing.swift in Sources */,
