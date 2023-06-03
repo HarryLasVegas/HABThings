@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A4A90AF2A2B28C100B2362D /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4A90AE2A2B28C100B2362D /* Color.swift */; };
 		4A6577C82A1F777800A1E510 /* HabBuddyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6577C72A1F777800A1E510 /* HabBuddyApp.swift */; };
 		4A6577CA2A1F777800A1E510 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6577C92A1F777800A1E510 /* ContentView.swift */; };
 		4A6577CC2A1F777900A1E510 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A6577CB2A1F777900A1E510 /* Assets.xcassets */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4A4A90AE2A2B28C100B2362D /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Color.swift; path = HabBuddy/Color.swift; sourceTree = SOURCE_ROOT; };
 		4A6577C42A1F777800A1E510 /* HabBuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HabBuddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A6577C72A1F777800A1E510 /* HabBuddyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabBuddyApp.swift; sourceTree = "<group>"; };
 		4A6577C92A1F777800A1E510 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -42,6 +44,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4A4A90AD2A2B28A300B2362D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				4A4A90AE2A2B28C100B2362D /* Color.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		4A6577BB2A1F777800A1E510 = {
 			isa = PBXGroup;
 			children = (
@@ -64,8 +74,8 @@
 				4A7D77D82A2A28AA003D4F57 /* Views */,
 				4A7D77D52A2A2883003D4F57 /* ViewModels */,
 				4A7D77D72A2A28A1003D4F57 /* Services */,
-				4A7D77D62A2A2899003D4F57 /* Extensions */,
 				4A7D77D42A2A286D003D4F57 /* Models */,
+				4A4A90AD2A2B28A300B2362D /* Extensions */,
 				4A6577D62A1F789A00A1E510 /* Info.plist */,
 				4A6577C72A1F777800A1E510 /* HabBuddyApp.swift */,
 				4A6577C92A1F777800A1E510 /* ContentView.swift */,
@@ -98,13 +108,6 @@
 				4A7D77DB2A2A28D7003D4F57 /* ThingsListViewModel.swift */,
 			);
 			path = ViewModels;
-			sourceTree = "<group>";
-		};
-		4A7D77D62A2A2899003D4F57 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Extensions;
 			sourceTree = "<group>";
 		};
 		4A7D77D72A2A28A1003D4F57 /* Services */ = {
@@ -218,6 +221,7 @@
 			files = (
 				4A6577CA2A1F777800A1E510 /* ContentView.swift in Sources */,
 				4A7D77DE2A2A28EA003D4F57 /* APIService.swift in Sources */,
+				4A4A90AF2A2B28C100B2362D /* Color.swift in Sources */,
 				4A7D77DC2A2A28D7003D4F57 /* ThingsListViewModel.swift in Sources */,
 				4A6577C82A1F777800A1E510 /* HabBuddyApp.swift in Sources */,
 				4A7D77E02A2A290C003D4F57 /* Thing.swift in Sources */,
