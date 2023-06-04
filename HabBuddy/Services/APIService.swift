@@ -13,8 +13,9 @@ struct APIService {
 
     func getJSON<T: Codable>(dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .deferredToDate,
                              keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys,
-                             dataDecodingStrategy: JSONDecoder.DataDecodingStrategy = .deferredToData) async throws -> T {
-        
+                             dataDecodingStrategy: JSONDecoder.DataDecodingStrategy = .deferredToData)
+                                async throws -> T {
+
         guard
             let url = URL(string: urlString)
         else {
@@ -34,7 +35,7 @@ struct APIService {
                 let httpResponse = response as? HTTPURLResponse,
                 httpResponse.statusCode == 200
             else {
-                //TODO: alle Responsecodes abfangen
+                // TODO: alle Responsecodes abfangen
                 print(response)
                 throw APIError.invalidResponseStatus
             }
@@ -58,7 +59,6 @@ struct APIService {
         }
     }
 }
-
 
 enum APIError: Error, LocalizedError {
     case invalidURL

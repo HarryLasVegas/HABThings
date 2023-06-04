@@ -13,8 +13,13 @@ class ThingsListViewModel: ObservableObject {
     @Published var showAlert = false
     @Published var errorMessage: String?
 
-    let urlString: String = "http://192.168.178.45:8080/rest/things"
-    let apiToken: String = "oh.habBuddyToken.LlvKRbWd6AgGjdxH2mbU1VyMFpksF7Wwlin8qjDpCCa9Vuoi2AQKyz9VLyw6XcheKZOLUQvnO3U2zvqmw"
+    private var keychainManager = KeychainManager()
+
+    var urlString: String = ""
+    var apiToken: String = ""
+
+//    let urlString: String = "http://192.168.178.45:8080/rest/things"
+//    let apiToken: String = "oh.habBuddyToken.LlvKRbWd6AgGjdxH2mbU1VyMFpksF7Wwlin8qjDpCCa9Vuoi2AQKyz9VLyw6XcheKZOLUQvnO3U2zvqmw"
 
     @MainActor
     func fetchThings() async {
@@ -31,6 +36,12 @@ class ThingsListViewModel: ObservableObject {
             errorMessage = error.localizedDescription
         }
     }
+    
+    func fetchCredentials() {
+        let credentials = keychainManager.getKeys()
+        urlString = credentials.urlString
+        apiToken = credentials.apiToken
+    }
 
     // checks if there are things withe the given status
     func thingsWithStatusPresent(for status: String) -> Bool {
@@ -39,6 +50,10 @@ class ThingsListViewModel: ObservableObject {
         } else {
             return false
         }
+    }
+
+    var amountOfThings: Int {
+        return things.count
     }
 
 //    var offlineThings: [Thing] {

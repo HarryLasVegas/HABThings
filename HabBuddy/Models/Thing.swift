@@ -67,8 +67,6 @@ enum Status: String, Codable, CaseIterable {
             return Color.theme.removed
         case .unknown:
             return Color.theme.unknown
-        default:
-            return Color.theme.unknown
         }
     }
 }

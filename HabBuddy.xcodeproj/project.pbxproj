@@ -17,6 +17,9 @@
 		4A7D77DE2A2A28EA003D4F57 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7D77DD2A2A28EA003D4F57 /* APIService.swift */; };
 		4A7D77E02A2A290C003D4F57 /* Thing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7D77DF2A2A290C003D4F57 /* Thing.swift */; };
 		4AA846CD2A2B3A98001CE3A5 /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA846CC2A2B3A98001CE3A5 /* ViewModifiers.swift */; };
+		4AA846CF2A2B757E001CE3A5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA846CE2A2B757E001CE3A5 /* SettingsView.swift */; };
+		4AA846D22A2B7816001CE3A5 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 4AA846D12A2B7816001CE3A5 /* KeychainAccess */; };
+		4AA846D42A2B7AE1001CE3A5 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA846D32A2B7AE0001CE3A5 /* KeychainManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +36,8 @@
 		4A7D77DD2A2A28EA003D4F57 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		4A7D77DF2A2A290C003D4F57 /* Thing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Thing.swift; sourceTree = "<group>"; };
 		4AA846CC2A2B3A98001CE3A5 /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
+		4AA846CE2A2B757E001CE3A5 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		4AA846D32A2B7AE0001CE3A5 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AA846D22A2B7816001CE3A5 /* KeychainAccess in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				4A7D77DD2A2A28EA003D4F57 /* APIService.swift */,
+				4AA846D32A2B7AE0001CE3A5 /* KeychainManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -116,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				4A7D77D92A2A28C9003D4F57 /* ThingsListView.swift */,
+				4AA846CE2A2B757E001CE3A5 /* SettingsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -146,6 +154,9 @@
 			dependencies = (
 			);
 			name = HabBuddy;
+			packageProductDependencies = (
+				4AA846D12A2B7816001CE3A5 /* KeychainAccess */,
+			);
 			productName = HabBuddy;
 			productReference = 4A6577C42A1F777800A1E510 /* HabBuddy.app */;
 			productType = "com.apple.product-type.application";
@@ -174,6 +185,9 @@
 				Base,
 			);
 			mainGroup = 4A6577BB2A1F777800A1E510;
+			packageReferences = (
+				4AA846D02A2B7816001CE3A5 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
+			);
 			productRefGroup = 4A6577C52A1F777800A1E510 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -225,11 +239,13 @@
 				4A6577CA2A1F777800A1E510 /* ContentView.swift in Sources */,
 				4A7D77DE2A2A28EA003D4F57 /* APIService.swift in Sources */,
 				4A4A90AF2A2B28C100B2362D /* Color.swift in Sources */,
+				4AA846CF2A2B757E001CE3A5 /* SettingsView.swift in Sources */,
 				4AA846CD2A2B3A98001CE3A5 /* ViewModifiers.swift in Sources */,
 				4A7D77DC2A2A28D7003D4F57 /* ThingsListViewModel.swift in Sources */,
 				4A6577C82A1F777800A1E510 /* HabBuddyApp.swift in Sources */,
 				4A7D77E02A2A290C003D4F57 /* Thing.swift in Sources */,
 				4A7D77DA2A2A28C9003D4F57 /* ThingsListView.swift in Sources */,
+				4AA846D42A2B7AE1001CE3A5 /* KeychainManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,6 +445,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4AA846D02A2B7816001CE3A5 /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4AA846D12A2B7816001CE3A5 /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4AA846D02A2B7816001CE3A5 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4A6577BC2A1F777800A1E510 /* Project object */;
 }

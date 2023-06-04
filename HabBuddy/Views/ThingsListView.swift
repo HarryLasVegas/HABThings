@@ -9,15 +9,32 @@ import SwiftUI
 
 struct ThingsListView: View {
     @StateObject var vm = ThingsListViewModel()
+//    private var keyChainManager = KeychainManager()
+
+//    @State private var urlString: String = ""
+//    @State private var apiToken: String = ""
+
+    @State private var shouldRefresh = false
+
     @State private var refreshButtonAnimation = false
     @State private var refreshButtonRotationAngle: Double = 0
 
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
+            VStack {
+                Text("URL: \(vm.urlString)")
+                Text("Token: \(vm.apiToken)")
+            }
             HStack {
+                Text("\(vm.amountOfThings) Things registered")
+                    .font(.headline)
+                    .foregroundColor(.secondary)
                 Spacer()
                 refreshButton
             }
+//            .padding([.leading, .trailing, .top], 10)
+            .padding(10)
+            .background(.ultraThickMaterial)
 
             List {
                 ForEach(Status.allCases, id: \.rawValue) { status in
@@ -27,6 +44,7 @@ struct ThingsListView: View {
                                 if thing.viewStatus.lowercased() == status.rawValue.lowercased() {
                                     HStack {
                                         Text(thing.viewLabel)
+                                            .help(thing.viewLabel)
                                         Spacer()
                                         Text(thing.viewStatus)
                                             .statusBeanStyle(bgColor: thing.viewStatusColor)
@@ -39,6 +57,7 @@ struct ThingsListView: View {
                     }
                 }
             }
+            .padding(.top, 0)
             .overlay(content: {
                 if vm.isLoading {
                     ProgressView()
@@ -53,7 +72,16 @@ struct ThingsListView: View {
             })
             .listStyle(.sidebar)
             .task {
+                vm.fetchCredentials()
                 await vm.fetchThings()
+
+                print("TASK")
+            }
+            .onAppear {
+                print("ONAPPEAR")
+            }
+            .onDisappear {
+                print("ONDISAPPEAR")
             }
         }
     }
@@ -70,6 +98,7 @@ extension ThingsListView {
     private var refreshButton: some View {
         Button {
             Task {
+                vm.fetchCredentials()
                 await vm.fetchThings()
             }
             refreshButtonAnimation.toggle()
@@ -83,92 +112,7 @@ extension ThingsListView {
         }
         .buttonStyle(.borderless)
         .focusable(false)
-        .padding([.trailing, .top], 10)
+        .controlSize(.large)
+//        .padding([.trailing, .top], 10)
     }
 }
-
-//extension ThingsListView {
-//    private var offlineList: some View {
-//        Section("OFFLINE") {
-//            ForEach(vm.offlineThings) { thing in
-//                HStack {
-//                    Text(thing.viewLabel )
-//                    Spacer()
-//                    Text(thing.viewStatus)
-//                }
-//            }
-//        }
-//    }
-//
-//    private var onlineList: some View {
-//        Section("ONLINE") {
-//            ForEach(vm.onlineThings) { thing in
-//                HStack {
-//                    Text(thing.viewLabel )
-//                    Spacer()
-//                    Text(thing.viewStatus)
-//                }
-//            }
-//        }
-//    }
-//
-//    private var removingList: some View {
-//        Section("REMOVING") {
-//            ForEach(vm.removingThings) { thing in
-//                HStack {
-//                    Text(thing.viewLabel )
-//                    Spacer()
-//                    Text(thing.viewStatus)
-//                }
-//            }
-//        }
-//    }
-//
-//    private var uninitializedList: some View {
-//        Section("UNINITIALIZED") {
-//            ForEach(vm.uninitializedThings) { thing in
-//                HStack {
-//                    Text(thing.viewLabel )
-//                    Spacer()
-//                    Text(thing.viewStatus)
-//                }
-//            }
-//        }
-//    }
-//
-//    private var removedList: some View {
-//        Section("REMOVED") {
-//            ForEach(vm.removedThings) { thing in
-//                HStack {
-//                    Text(thing.viewLabel )
-//                    Spacer()
-//                    Text(thing.viewStatus)
-//                }
-//            }
-//        }
-//    }
-//
-//    private var unknownList: some View {
-//        Section("UNKOWN") {
-//            ForEach(vm.unknownThings) { thing in
-//                HStack {
-//                    Text(thing.viewLabel )
-//                    Spacer()
-//                    Text(thing.viewStatus)
-//                }
-//            }
-//        }
-//    }
-//
-//    private var initializingList: some View {
-//        Section("INITIALIZING") {
-//            ForEach(vm.initializingThings) { thing in
-//                HStack {
-//                    Text(thing.viewLabel )
-//                    Spacer()
-//                    Text(thing.viewStatus)
-//                }
-//            }
-//        }
-//    }
-//}

@@ -6,12 +6,16 @@
 //
 
 import SwiftUI
+import KeychainAccess
 
 @main
 struct HabBuddyApp: App {
+//    @StateObject var keyChainManager = KeychainManager()
+
     var body: some Scene {
         MenuBarExtra {
             ContentView()
+//                .environmentObject(keyChainManager)
         } label: {
             Label("habBuddy", systemImage: "note.text")
                 .labelStyle(.titleAndIcon)
