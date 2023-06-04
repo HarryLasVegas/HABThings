@@ -28,3 +28,39 @@ extension Text {
         modifier(StatusBeanModifier(bgColor: bgColor))
     }
 }
+
+// MARK: Settings Boxes
+struct SettingsBoxModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .padding()
+            .background(.thinMaterial)
+            .overlay(
+                    RoundedRectangle(cornerRadius: 7)
+                        .stroke(.gray, lineWidth: 0.5)
+            )
+    }
+}
+
+extension View {
+    func settingsBoxStyle() -> some View {
+        modifier(SettingsBoxModifier())
+    }
+}
+
+// MARK: Labels with tinted labels
+struct ColorfulIconLabelStyle: LabelStyle {
+    var color: Color
+
+    func makeBody(configuration: Configuration) -> some View {
+        Label {
+            configuration.title
+                .offset(x: 7)
+        } icon: {
+            configuration.icon
+                .font(.system(size: 13))
+                .foregroundColor(.white)
+                .background(RoundedRectangle(cornerRadius: 7).frame(width: 24, height: 24).foregroundColor(color))
+        }
+    }
+}

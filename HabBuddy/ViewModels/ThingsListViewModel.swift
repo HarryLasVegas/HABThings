@@ -6,24 +6,27 @@
 //
 
 import Foundation
+import SwiftUI
 
 class ThingsListViewModel: ObservableObject {
+
     @Published var things: [Thing] = []
     @Published var isLoading = false
     @Published var showAlert = false
     @Published var errorMessage: String?
+    @Published var showingErrorBanner = false
 
-    private var keychainManager = KeychainManager()
+    var settingsManager: SettingsManager
 
-    var urlString: String = ""
-    var apiToken: String = ""
-
-//    let urlString: String = "http://192.168.178.45:8080/rest/things"
-//    let apiToken: String = "oh.habBuddyToken.LlvKRbWd6AgGjdxH2mbU1VyMFpksF7Wwlin8qjDpCCa9Vuoi2AQKyz9VLyw6XcheKZOLUQvnO3U2zvqmw"
+    init(settingsManager: SettingsManager) {
+        self.settingsManager = settingsManager
+    }
 
     @MainActor
     func fetchThings() async {
-        let apiService = APIService(urlString: urlString, apiToken: apiToken)
+        fetchCredentials()
+
+        let apiService = APIService(urlString: settingsManager.urlString, apiToken: settingsManager.apiToken)
         isLoading.toggle()
         defer {
             isLoading.toggle()
@@ -31,19 +34,25 @@ class ThingsListViewModel: ObservableObject {
         do {
             things = try await apiService.getJSON()
             things.sort { $0.viewLabel < $1.viewLabel }
+            withAnimation {
+                showingErrorBanner = false
+            }
         } catch {
             showAlert = true
+            print("ERROR: \(error)")
             errorMessage = error.localizedDescription
+            things = []
+            withAnimation {
+                showingErrorBanner = true
+            }
         }
     }
-    
+
     func fetchCredentials() {
-        let credentials = keychainManager.getKeys()
-        urlString = credentials.urlString
-        apiToken = credentials.apiToken
+        settingsManager.getCredentialsFromKeychain()
     }
 
-    // checks if there are things withe the given status
+    // checks if there are things with the given status
     func thingsWithStatusPresent(for status: String) -> Bool {
         if things.filter({ $0.viewStatus.lowercased() == status.lowercased() }).count > 0 {
             return true
@@ -55,32 +64,4 @@ class ThingsListViewModel: ObservableObject {
     var amountOfThings: Int {
         return things.count
     }
-
-//    var offlineThings: [Thing] {
-//        return things.filter { $0.viewStatus.lowercased() == "offline" }
-//    }
-//
-//    var onlineThings: [Thing] {
-//        return things.filter { $0.viewStatus.lowercased() == "online" }
-//    }
-//
-//    var uninitializedThings: [Thing] {
-//        return things.filter { $0.viewStatus.lowercased() == "uninitialized" }
-//    }
-//
-//    var initializingThings: [Thing] {
-//        return things.filter { $0.viewStatus.lowercased() == "initializing" }
-//    }
-//
-//    var removedThings: [Thing] {
-//        return things.filter { $0.viewStatus.lowercased() == "removed" }
-//    }
-//
-//    var removingThings: [Thing] {
-//        return things.filter { $0.viewStatus.lowercased() == "removing" }
-//    }
-//
-//    var unknownThings: [Thing] {
-//        return things.filter { $0.viewStatus.lowercased() == "unknown" }
-//    }
 }

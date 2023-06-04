@@ -8,59 +8,26 @@
 import SwiftUI
 
 struct ThingsListView: View {
-    @StateObject var vm = ThingsListViewModel()
-//    private var keyChainManager = KeychainManager()
-
-//    @State private var urlString: String = ""
-//    @State private var apiToken: String = ""
-
-    @State private var shouldRefresh = false
+    @StateObject var vm: ThingsListViewModel
+    @EnvironmentObject var settingsManager: SettingsManager
 
     @State private var refreshButtonAnimation = false
     @State private var refreshButtonRotationAngle: Double = 0
 
+    let refreshTimer = Timer.publish(every: 10, on: .main, in: .common).autoconnect()
+
     var body: some View {
         VStack(spacing: 0) {
-            VStack {
-                Text("URL: \(vm.urlString)")
-                Text("Token: \(vm.apiToken)")
-            }
-            HStack {
-                Text("\(vm.amountOfThings) Things registered")
-                    .font(.headline)
-                    .foregroundColor(.secondary)
-                Spacer()
-                refreshButton
-            }
-//            .padding([.leading, .trailing, .top], 10)
-            .padding(10)
-            .background(.ultraThickMaterial)
-
-            List {
-                ForEach(Status.allCases, id: \.rawValue) { status in
-                    Section(status.rawValue.uppercased()) {
-                        if vm.thingsWithStatusPresent(for: status.rawValue) {
-                            ForEach(vm.things) { thing in
-                                if thing.viewStatus.lowercased() == status.rawValue.lowercased() {
-                                    HStack {
-                                        Text(thing.viewLabel)
-                                            .help(thing.viewLabel)
-                                        Spacer()
-                                        Text(thing.viewStatus)
-                                            .statusBeanStyle(bgColor: thing.viewStatusColor)
-                                    }
-                                }
-                            }
-                        } else {
-                            Text("-")
-                        }
-                    }
-                }
-            }
+            headerView
+            listView
             .padding(.top, 0)
             .overlay(content: {
                 if vm.isLoading {
                     ProgressView()
+                }
+                if vm.showingErrorBanner {
+                    NoValidDataView()
+                        .transition(.slide.combined(with: .opacity))
                 }
             })
             .alert("Application Error", isPresented: $vm.showAlert, actions: {
@@ -72,28 +39,75 @@ struct ThingsListView: View {
             })
             .listStyle(.sidebar)
             .task {
-                vm.fetchCredentials()
                 await vm.fetchThings()
-
-                print("TASK")
             }
-            .onAppear {
-                print("ONAPPEAR")
-            }
-            .onDisappear {
-                print("ONDISAPPEAR")
+            .onChange(of: settingsManager.settingsChanged) { _ in
+                Task {
+                    settingsManager.settingsChanged = false
+                    await vm.fetchThings()
+                }
             }
         }
+        .onReceive(refreshTimer, perform: { _ in
+            print("updating")
+            Task {
+                await vm.fetchThings()
+            }
+        })
     }
+
+    // Initializer is needed for passing the EO settingsManager to the ViewModel
+    init(settingsManager: SettingsManager) {
+        let vm = ThingsListViewModel(settingsManager: settingsManager)
+        _vm = StateObject(wrappedValue: vm)
+    }
+
 }
 
 struct ThingsListView_Previews: PreviewProvider {
     static var previews: some View {
-        ThingsListView()
+        let settingsManager = SettingsManager()
+        ThingsListView(settingsManager: settingsManager)
     }
 }
 
 extension ThingsListView {
+    private var headerView: some View {
+        HStack {
+            Text("\(vm.amountOfThings) Things")
+                .font(.headline)
+                .foregroundColor(.secondary)
+            Spacer()
+            refreshButton
+                .help("Refresh")
+        }
+        .padding(10)
+        .background(.ultraThickMaterial)
+    }
+
+    private var listView: some View {
+        List {
+            ForEach(Status.allCases, id: \.rawValue) { status in
+                Section(status.rawValue.uppercased()) {
+                    if vm.thingsWithStatusPresent(for: status.rawValue) {
+                        ForEach(vm.things) { thing in
+                            if thing.viewStatus.lowercased() == status.rawValue.lowercased() {
+                                HStack {
+                                    Text(thing.viewLabel)
+                                        .help(thing.viewLabel)
+                                    Spacer()
+                                    Text(thing.viewStatus)
+                                        .statusBeanStyle(bgColor: thing.viewStatusColor)
+                                }
+                            }
+                        }
+                    } else {
+                        Text("-")
+                    }
+                }
+            }
+        }
+    }
 
     private var refreshButton: some View {
         Button {
@@ -113,6 +127,5 @@ extension ThingsListView {
         .buttonStyle(.borderless)
         .focusable(false)
         .controlSize(.large)
-//        .padding([.trailing, .top], 10)
     }
 }

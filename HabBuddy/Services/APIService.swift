@@ -16,8 +16,10 @@ struct APIService {
                              dataDecodingStrategy: JSONDecoder.DataDecodingStrategy = .deferredToData)
                                 async throws -> T {
 
+        let completeURL = "\(urlString)/rest/things"
+
         guard
-            let url = URL(string: urlString)
+            let url = URL(string: completeURL)
         else {
             throw APIError.invalidURL
         }
