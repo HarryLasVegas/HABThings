@@ -15,6 +15,7 @@ class ThingsListViewModel: ObservableObject {
     @Published var showAlert = false
     @Published var errorMessage: String?
     @Published var showingErrorBanner = false
+    @Published var searchText = ""
 
     var settingsManager: SettingsManager
 
@@ -52,9 +53,9 @@ class ThingsListViewModel: ObservableObject {
         settingsManager.getCredentialsFromKeychain()
     }
 
-    // checks if there are things with the given status
+    // checks if there are things with the given status - the searchfilter is regarded!
     func thingsWithStatusPresent(for status: String) -> Bool {
-        if things.filter({ $0.viewStatus.lowercased() == status.lowercased() }).count > 0 {
+        if filteredThings.filter({ $0.viewStatus.lowercased() == status.lowercased() }).count > 0 {
             return true
         } else {
             return false
@@ -63,5 +64,13 @@ class ThingsListViewModel: ObservableObject {
 
     var amountOfThings: Int {
         return things.count
+    }
+
+    var filteredThings: [Thing] {
+        if searchText.isEmpty {
+            return things
+        } else {
+            return things.filter({ $0.viewLabel.localizedCaseInsensitiveContains(searchText)})
+        }
     }
 }

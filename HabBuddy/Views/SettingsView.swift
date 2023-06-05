@@ -16,6 +16,7 @@ struct SettingsView: View {
     @State private var urlString: String = ""
     @State private var apiToken: String = ""
 
+    @State private var updateRegularly = false
     @State private var selectedUpdateInterval = "10s"
     let updateIntervals = ["10s", "30s", "60s"]
 
@@ -50,27 +51,36 @@ struct SettingsView: View {
             .settingsBoxStyle()
 
             VStack(alignment: .leading) {
-                HStack {
-                    Label("Update interval", systemImage: "timer")
-                        .labelStyle(ColorfulIconLabelStyle(color: .purple))
-                    Spacer()
-                    Picker("", selection: $selectedUpdateInterval) {
-                        ForEach(updateIntervals, id: \.self) {
-                            Text($0)
-                        }
+                VStack {
+                    HStack {
+                        Label("Update regularly", systemImage: "timer")
+                            .labelStyle(ColorfulIconLabelStyle(color: .purple))
+                        Spacer()
+
+                        Toggle("", isOn: $updateRegularly)
+                            .toggleStyle(SwitchToggleStyle(tint: .green))
+                            .toggleStyle(.switch)
                     }
-                    .pickerStyle(.menu)
-                    .frame(maxWidth: 100)
+
+                    HStack {
+                        Spacer()
+                        Text("Update interval")
+                            .foregroundColor(updateRegularly ? .primary : .secondary)
+                        Picker("", selection: $selectedUpdateInterval) {
+                            ForEach(updateIntervals, id: \.self) {
+                                Text($0)
+                            }
+                        }
+                        .pickerStyle(.menu)
+                        .frame(maxWidth: 100)
+                        .disabled(!updateRegularly)
+                    }
                 }
             }
             .settingsBoxStyle()
-
-//            Button("Save") {
-//                //
-//            }
         }
         .navigationTitle("Settings")
-        .padding()
+        .padding(10)
         .task {
             urlString = settingsManager.urlString
             apiToken = settingsManager.apiToken

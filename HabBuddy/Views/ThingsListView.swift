@@ -13,12 +13,17 @@ struct ThingsListView: View {
 
     @State private var refreshButtonAnimation = false
     @State private var refreshButtonRotationAngle: Double = 0
+    @State private var searchBarIsShown = false
 
     let refreshTimer = Timer.publish(every: 10, on: .main, in: .common).autoconnect()
 
     var body: some View {
         VStack(spacing: 0) {
             headerView
+            if searchBarIsShown {
+                searchTextField
+            }
+
             listView
             .padding(.top, 0)
             .overlay(content: {
@@ -78,6 +83,8 @@ extension ThingsListView {
                 .font(.headline)
                 .foregroundColor(.secondary)
             Spacer()
+            searchButton
+                .help("Search")
             refreshButton
                 .help("Refresh")
         }
@@ -90,7 +97,7 @@ extension ThingsListView {
             ForEach(Status.allCases, id: \.rawValue) { status in
                 Section(status.rawValue.uppercased()) {
                     if vm.thingsWithStatusPresent(for: status.rawValue) {
-                        ForEach(vm.things) { thing in
+                        ForEach(vm.filteredThings) { thing in
                             if thing.viewStatus.lowercased() == status.rawValue.lowercased() {
                                 HStack {
                                     Text(thing.viewLabel)
@@ -127,5 +134,41 @@ extension ThingsListView {
         .buttonStyle(.borderless)
         .focusable(false)
         .controlSize(.large)
+    }
+
+    private var searchButton: some View {
+        Button {
+            withAnimation {
+                searchBarIsShown.toggle()
+            }
+        } label: {
+            Image(systemName: "magnifyingglass")
+        }
+        .buttonStyle(.borderless)
+        .focusable(false)
+        .controlSize(.large)
+
+    }
+
+    private var searchTextField: some View {
+        HStack {
+            TextField("Search", text: $vm.searchText, prompt: Text("Search ...."))
+                .textFieldStyle(.roundedBorder)
+
+            Spacer()
+
+            Button {
+                vm.searchText = ""
+                withAnimation {
+                    searchBarIsShown.toggle()
+                }
+            } label: {
+                Image(systemName: "xmark.circle")
+            }
+            .buttonStyle(.borderless)
+            .focusable(false)
+            .controlSize(.large)
+        }
+        .padding(10)
     }
 }
