@@ -58,8 +58,8 @@ struct SettingsView: View {
                         Spacer()
 
                         Toggle("", isOn: $updateRegularly)
-                            .toggleStyle(SwitchToggleStyle(tint: .green))
                             .toggleStyle(.switch)
+                            .labelsHidden()
                     }
 
                     HStack {
@@ -73,6 +73,7 @@ struct SettingsView: View {
                         }
                         .pickerStyle(.menu)
                         .frame(maxWidth: 100)
+                        .labelsHidden()
                         .disabled(!updateRegularly)
                     }
                 }
