@@ -18,8 +18,9 @@ struct HabBuddyApp: App {
             ContentView()
                 .environmentObject(settingsManager)
         } label: {
-            Label("habBuddy", systemImage: "note.text")
-                .labelStyle(.titleAndIcon)
+//            Label("habBuddy", systemImage: "note.text")
+            Label("HABbuddy", image: "menubar")
+                .labelStyle(.iconOnly)
         }
         .menuBarExtraStyle(.window)
 

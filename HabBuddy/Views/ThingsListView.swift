@@ -22,7 +22,7 @@ struct ThingsListView: View {
     var body: some View {
         VStack(spacing: 0) {
             headerView
-            
+
             if searchBarIsShown {
                 searchTextField
             }

@@ -64,7 +64,6 @@ extension View {
     }
 }
 
-
 // MARK: Labels with tinted labels
 struct ColorfulIconLabelStyle: LabelStyle {
     var color: Color
