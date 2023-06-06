@@ -15,11 +15,14 @@ struct ThingsListView: View {
     @State private var refreshButtonRotationAngle: Double = 0
     @State private var searchBarIsShown = false
 
+    @FocusState private var focusField: FocusField?
+
     let refreshTimer = Timer.publish(every: 300, on: .main, in: .common).autoconnect()
 
     var body: some View {
         VStack(spacing: 0) {
             headerView
+            
             if searchBarIsShown {
                 searchTextField
             }
@@ -30,10 +33,6 @@ struct ThingsListView: View {
                 if vm.isLoading {
                     ProgressView()
                 }
-//                if vm.showingErrorBanner {
-//                    NoValidDataView()
-//                        .transition(.slide.combined(with: .opacity))
-//                }
             })
             .alert("Application Error", isPresented: $vm.showAlert, actions: {
                 Button("OK") {}
@@ -82,14 +81,16 @@ extension ThingsListView {
             Text("\(vm.amountOfThings) Things")
                 .font(.headline)
                 .foregroundColor(.secondary)
+
             Spacer()
+
             if vm.lastFetchFailed ?? false {
                 errorIcon
             }
+
             searchButton
-                .help("Search")
+
             refreshButton
-                .help("Refresh")
         }
         .padding(10)
         .background(.ultraThickMaterial)
@@ -134,22 +135,21 @@ extension ThingsListView {
             Image(systemName: "arrow.triangle.2.circlepath")
                 .rotationEffect(.degrees(refreshButtonRotationAngle))
         }
-        .buttonStyle(.borderless)
-        .focusable(false)
-        .controlSize(.large)
+        .iconButtonStyle()
+        .help("Refresh")
     }
 
     private var searchButton: some View {
         Button {
             withAnimation {
                 searchBarIsShown.toggle()
+                focusField = .searchField
             }
         } label: {
             Image(systemName: "magnifyingglass")
         }
-        .buttonStyle(.borderless)
-        .focusable(false)
-        .controlSize(.large)
+        .iconButtonStyle()
+        .help("Search")
 
     }
 
@@ -163,6 +163,7 @@ extension ThingsListView {
     private var searchTextField: some View {
         HStack {
             TextField("Search", text: $vm.searchText, prompt: Text("Search ...."))
+                .focused($focusField, equals: .searchField)
                 .textFieldStyle(.roundedBorder)
 
             Spacer()
@@ -181,4 +182,8 @@ extension ThingsListView {
         }
         .padding(10)
     }
+
+    enum FocusField: Hashable {
+        case searchField
+      }
 }

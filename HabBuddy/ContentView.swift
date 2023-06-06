@@ -43,9 +43,7 @@ extension ContentView {
             } label: {
                 Image(systemName: "gear")
             }
-            .buttonStyle(.borderless)
-            .controlSize(.large)
-            .focusable(false)
+            .iconButtonStyle()
             .help("Settings")
 
             Spacer()
@@ -55,9 +53,7 @@ extension ContentView {
             } label: {
                 Image(systemName: "rectangle.portrait.and.arrow.right")
             }
-            .buttonStyle(.borderless)
-            .controlSize(.regular)
-            .focusable(false)
+            .iconButtonStyle()
             .help("Quit")
         }
         .padding(10)

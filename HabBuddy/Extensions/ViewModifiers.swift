@@ -48,6 +48,23 @@ extension View {
     }
 }
 
+// Borderless buttons, non focusable
+struct IconButtonsModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .buttonStyle(.borderless)
+            .focusable(false)
+            .controlSize(.large)
+    }
+}
+
+extension View {
+    func iconButtonStyle() -> some View {
+        modifier(IconButtonsModifier())
+    }
+}
+
+
 // MARK: Labels with tinted labels
 struct ColorfulIconLabelStyle: LabelStyle {
     var color: Color
