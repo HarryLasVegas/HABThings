@@ -15,7 +15,7 @@ struct ThingsListView: View {
     @State private var refreshButtonRotationAngle: Double = 0
     @State private var searchBarIsShown = false
 
-    let refreshTimer = Timer.publish(every: 10, on: .main, in: .common).autoconnect()
+    let refreshTimer = Timer.publish(every: 300, on: .main, in: .common).autoconnect()
 
     var body: some View {
         VStack(spacing: 0) {
@@ -30,10 +30,10 @@ struct ThingsListView: View {
                 if vm.isLoading {
                     ProgressView()
                 }
-                if vm.showingErrorBanner {
-                    NoValidDataView()
-                        .transition(.slide.combined(with: .opacity))
-                }
+//                if vm.showingErrorBanner {
+//                    NoValidDataView()
+//                        .transition(.slide.combined(with: .opacity))
+//                }
             })
             .alert("Application Error", isPresented: $vm.showAlert, actions: {
                 Button("OK") {}
@@ -83,6 +83,9 @@ extension ThingsListView {
                 .font(.headline)
                 .foregroundColor(.secondary)
             Spacer()
+            if vm.lastFetchFailed ?? false {
+                errorIcon
+            }
             searchButton
                 .help("Search")
             refreshButton
@@ -148,6 +151,13 @@ extension ThingsListView {
         .focusable(false)
         .controlSize(.large)
 
+    }
+
+    private var errorIcon: some View {
+        Label("Error", systemImage: "exclamationmark.triangle.fill")
+            .labelStyle(.iconOnly)
+            .foregroundColor(.yellow)
+            .help("No connection to openHAB server!")
     }
 
     private var searchTextField: some View {

@@ -11,10 +11,12 @@ import SwiftUI
 class ThingsListViewModel: ObservableObject {
 
     @Published var things: [Thing] = []
+
     @Published var isLoading = false
     @Published var showAlert = false
     @Published var errorMessage: String?
-    @Published var showingErrorBanner = false
+
+    @Published var lastFetchFailed: Bool?
     @Published var searchText = ""
 
     var settingsManager: SettingsManager
@@ -36,7 +38,7 @@ class ThingsListViewModel: ObservableObject {
             things = try await apiService.getJSON()
             things.sort { $0.viewLabel < $1.viewLabel }
             withAnimation {
-                showingErrorBanner = false
+                lastFetchFailed = false
             }
         } catch {
             showAlert = true
@@ -44,7 +46,7 @@ class ThingsListViewModel: ObservableObject {
             errorMessage = error.localizedDescription
             things = []
             withAnimation {
-                showingErrorBanner = true
+                lastFetchFailed = true
             }
         }
     }

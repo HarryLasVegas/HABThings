@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     // no init needed because no viewModel
-    // the seetingsManager is passed in by the ".environmentObject" in the APP struct
+    // the settingsManager is passed in by the ".environmentObject" in the APP struct
     @EnvironmentObject var settingsManager: SettingsManager
     @Environment(\.presentationMode) var presentationMode
 
