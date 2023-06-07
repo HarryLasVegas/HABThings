@@ -25,6 +25,8 @@ struct SettingsView: View {
             accessDataBox
 
             refreshBox
+
+            launchOnLoginBox
         }
         .navigationTitle("Settings")
         .padding(10)
@@ -120,6 +122,31 @@ extension SettingsView {
                     .onChange(of: selectedRefreshInterval) { _ in
                         refreshTimerService.resetTimer()
                     }
+                }
+            }
+        }
+        .settingsBoxStyle()
+    }
+
+    private var launchOnLoginBox: some View {
+        VStack(alignment: .leading) {
+            VStack {
+                HStack {
+                    Label("Launch HABbuddy on login", systemImage: "ipad.and.arrow.forward")
+                        .labelStyle(ColorfulIconLabelStyle(color: .pink))
+
+                    Spacer()
+
+                    Toggle("", isOn: $refreshRegularly)
+                        .toggleStyle(.switch)
+                        .labelsHidden()
+//                        .onChange(of: refreshRegularly) { refreshRegularly in
+//                            if refreshRegularly == true {
+//                                refreshTimerService.resetTimer()
+//                            } else {
+//                                refreshTimerService.stopRefreshTimer()
+//                            }
+//                        }
                 }
             }
         }
