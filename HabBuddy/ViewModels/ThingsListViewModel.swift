@@ -25,7 +25,15 @@ class ThingsListViewModel: ObservableObject {
     init(settingsManager: SettingsManager, refreshTimerService: RefreshTimerService) {
         self.settingsManager = settingsManager
         self.refreshTimerService = refreshTimerService
-        NotificationCenter.default.addObserver(self, selector: #selector(timerFired), name: NSNotification.Name("TimerFired"), object: nil)
+        print("init ThingsListViewModel")
+    }
+
+    // if the code of the function is exectued in init, the observer is added twice
+    func addNotificationObserver() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(timerFired),
+                                               name: NSNotification.Name("TimerFired"),
+                                               object: nil)
     }
 
     @MainActor
@@ -79,22 +87,10 @@ class ThingsListViewModel: ObservableObject {
         }
     }
 
-    // Refresh timer
     @objc private func timerFired() {
+        print("OBJ dings fired")
         Task {
             await fetchThings()
         }
     }
-
-//    func startRefreshTimerIfActivatedInSettings() {
-//        if refreshRegularly == true {
-//            refreshTimerService.startTimer {
-//                await self.fetchThings()
-//            }
-//        }
-//    }
-//
-//    func stopRefreshTimer() {
-//        refreshTimerService.stopTimer()
-//    }
 }

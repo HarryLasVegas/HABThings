@@ -25,6 +25,7 @@ struct APIService {
         }
 
         do {
+            print("DO")
             let authorizationKey: String = "Bearer \(apiToken)"
 
             var request = URLRequest(url: url)
@@ -50,6 +51,7 @@ struct APIService {
 
             do {
                 let decodedData = try decoder.decode(T.self, from: data)
+                print("Returned decoded data")
                 return decodedData
             } catch {
                 print("Couldn't decode")

@@ -18,8 +18,6 @@ struct ThingsListView: View {
 
     @FocusState private var focusField: FocusField?
 
-//    let refreshTimer = Timer.publish(every: 300, on: .main, in: .common).autoconnect()
-
     var body: some View {
         VStack(spacing: 0) {
             headerView
@@ -44,6 +42,7 @@ struct ThingsListView: View {
             })
             .listStyle(.sidebar)
             .task {
+                vm.addNotificationObserver()
                 await vm.fetchThings()
                 refreshTimerService.startRefreshTimerIfActivatedInSettings()
             }
@@ -68,6 +67,7 @@ struct ThingsListView: View {
         let vm = ThingsListViewModel(settingsManager: settingsManager,
                                      refreshTimerService: refreshTimerService)
         _vm = StateObject(wrappedValue: vm)
+        print("Init of ThingsListView")
     }
 
 }

@@ -32,9 +32,6 @@ class RefreshTimerService: ObservableObject {
     private var fireFunction: (() async -> Void)?
 
     init() {
-//        getSelectedUpdateInterval()
-//        let rawValue = UserDefaults.standard.integer(forKey: "selectedRefreshInterval")
-//        selectedUpdateInterval = RefreshIntervalOptions(rawValue: rawValue)
     }
 
     private func getSelectedUpdateInterval() {
@@ -61,9 +58,10 @@ class RefreshTimerService: ObservableObject {
         timer = Timer.scheduledTimer(withTimeInterval: TimeInterval(duration.rawValue),
                                      repeats: true) { _ in
             NotificationCenter.default.post(name: NSNotification.Name("TimerFired"), object: nil)
+            print("Timer fired")
         }
         isActive = true
-        print("Timer activated: \(selectedUpdateInterval?.rawValue)")
+        print("Timer activated: \(selectedUpdateInterval?.stringValue ?? "no value")")
     }
 
     func stopRefreshTimer() {
