@@ -10,7 +10,6 @@ import KeychainAccess
 
 @main
 struct HabBuddyApp: App {
-//    @StateObject var keyChainManager = KeychainManager()
     @StateObject var settingsManager = SettingsManager()
 
     var body: some Scene {
@@ -23,6 +22,5 @@ struct HabBuddyApp: App {
                 .labelStyle(.iconOnly)
         }
         .menuBarExtraStyle(.window)
-
     }
 }

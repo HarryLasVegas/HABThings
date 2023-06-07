@@ -25,6 +25,12 @@ struct ContentView: View {
         .frame(minWidth: 350, idealWidth: 350, maxWidth: 350,
                minHeight: 800, idealHeight: 800, maxHeight: 1200,
                alignment: .topLeading)
+        .onBackground {
+            print("BACKGROUND!")
+        }
+        .onForeground {
+            print("FOREGROUND")
+        }
     }
 }
 
