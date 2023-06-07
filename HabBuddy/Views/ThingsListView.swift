@@ -10,6 +10,7 @@ import SwiftUI
 struct ThingsListView: View {
     @StateObject var vm: ThingsListViewModel
     @EnvironmentObject var settingsManager: SettingsManager
+    @EnvironmentObject var refreshTimerService: RefreshTimerService
 
     @State private var refreshButtonAnimation = false
     @State private var refreshButtonRotationAngle: Double = 0
@@ -17,7 +18,7 @@ struct ThingsListView: View {
 
     @FocusState private var focusField: FocusField?
 
-    let refreshTimer = Timer.publish(every: 300, on: .main, in: .common).autoconnect()
+//    let refreshTimer = Timer.publish(every: 300, on: .main, in: .common).autoconnect()
 
     var body: some View {
         VStack(spacing: 0) {
@@ -44,6 +45,7 @@ struct ThingsListView: View {
             .listStyle(.sidebar)
             .task {
                 await vm.fetchThings()
+                refreshTimerService.startRefreshTimerIfActivatedInSettings()
             }
             .onChange(of: settingsManager.settingsChanged) { _ in
                 Task {
@@ -52,17 +54,19 @@ struct ThingsListView: View {
                 }
             }
         }
-        .onReceive(refreshTimer, perform: { _ in
-            print("updating")
-            Task {
-                await vm.fetchThings()
-            }
-        })
+//        .onReceive(refreshTimer, perform: { _ in
+//            print("updating")
+//            Task {
+//                await vm.fetchThings()
+//            }
+//        })
     }
 
     // Initializer is needed for passing the EO settingsManager to the ViewModel
-    init(settingsManager: SettingsManager) {
-        let vm = ThingsListViewModel(settingsManager: settingsManager)
+    init(settingsManager: SettingsManager,
+         refreshTimerService: RefreshTimerService) {
+        let vm = ThingsListViewModel(settingsManager: settingsManager,
+                                     refreshTimerService: refreshTimerService)
         _vm = StateObject(wrappedValue: vm)
     }
 
@@ -71,7 +75,10 @@ struct ThingsListView: View {
 struct ThingsListView_Previews: PreviewProvider {
     static var previews: some View {
         let settingsManager = SettingsManager()
-        ThingsListView(settingsManager: settingsManager)
+        let refreshTimerService = RefreshTimerService()
+        ThingsListView(settingsManager: settingsManager,
+                       refreshTimerService: refreshTimerService)
+        .environmentObject(settingsManager)
     }
 }
 

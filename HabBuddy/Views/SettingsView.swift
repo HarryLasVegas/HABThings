@@ -7,26 +7,27 @@
 
 import SwiftUI
 
-enum RefreshIntervalOptions: Int, CaseIterable {
-    case seconds10 = 10
-    case seconds20 = 20
-    case seconds60 = 60
-    case minutes5 = 300
-
-    var stringValue: String {
-            switch self {
-            case .seconds10: return "10s"
-            case .seconds20: return "20s"
-            case .seconds60: return "60s"
-            case .minutes5: return "5min"
-            }
-    }
-}
+//enum RefreshIntervalOptions: Int, CaseIterable {
+//    case seconds10 = 10
+//    case seconds20 = 20
+//    case seconds60 = 60
+//    case minutes5 = 300
+//
+//    var stringValue: String {
+//            switch self {
+//            case .seconds10: return "10s"
+//            case .seconds20: return "20s"
+//            case .seconds60: return "60s"
+//            case .minutes5: return "5min"
+//            }
+//    }
+//}
 
 struct SettingsView: View {
     // no init needed because no viewModel
     // the settingsManager is passed in by the ".environmentObject" in the APP struct
     @EnvironmentObject var settingsManager: SettingsManager
+    @EnvironmentObject var refreshTimerService: RefreshTimerService
     @Environment(\.presentationMode) var presentationMode
 
     @AppStorage("selectedRefreshInterval") var selectedRefreshInterval: RefreshIntervalOptions = .seconds20
@@ -72,26 +73,21 @@ struct SettingsView: View {
             VStack(alignment: .leading) {
                 VStack {
                     HStack {
-//                        Label("Refresh regularly", systemImage: "timer")
-//                            .labelStyle(ColorfulIconLabelStyle(color: .purple))
-
-                        Label {
-                            VStack(alignment: .leading) {
-                                Text("Refresh regularly")
-                                Text("Refreshing only happens when the window is active")
-                                    .font(.subheadline)
-                                    .foregroundColor(.secondary)
-                            }
-                        } icon: {
-                            Image(systemName: "timer")
-                        }
-                        .labelStyle(ColorfulIconLabelStyle(color: .purple))
+                        Label("Refresh regularly", systemImage: "timer")
+                            .labelStyle(ColorfulIconLabelStyle(color: .purple))
 
                         Spacer()
 
                         Toggle("", isOn: $refreshRegularly)
                             .toggleStyle(.switch)
                             .labelsHidden()
+                            .onChange(of: refreshRegularly) { refreshRegularly in
+                                if refreshRegularly == true {
+                                    refreshTimerService.resetTimer()
+                                } else {
+                                    refreshTimerService.stopRefreshTimer()
+                                }
+                            }
                     }
 
                     HStack {
@@ -107,6 +103,9 @@ struct SettingsView: View {
                         .frame(maxWidth: 100)
                         .labelsHidden()
                         .disabled(!refreshRegularly)
+                        .onChange(of: selectedRefreshInterval) { _ in
+                            refreshTimerService.resetTimer()
+                        }
                     }
                 }
             }

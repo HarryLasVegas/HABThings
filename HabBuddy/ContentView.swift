@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var settingsManager: SettingsManager
+    @EnvironmentObject var refreshTimerService: RefreshTimerService
 
     var body: some View {
         NavigationStack {
@@ -17,7 +18,8 @@ struct ContentView: View {
                 // ThingsListView has an initializer
                 // The ".environentObject" is useless here
                 // The inititializer is needed for the ViewModel
-                ThingsListView(settingsManager: settingsManager)
+                ThingsListView(settingsManager: settingsManager,
+                               refreshTimerService: refreshTimerService)
                 bottomBar
                     .background(.ultraThickMaterial)
             }
