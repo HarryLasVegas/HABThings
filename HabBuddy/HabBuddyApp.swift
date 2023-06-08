@@ -15,11 +15,12 @@ struct HabBuddyApp: App {
 
     var body: some Scene {
         MenuBarExtra {
-            ContentView()
+//            ContentView()
+            ThingsListView(settingsManager: settingsManager,
+                           refreshTimerService: refreshTimerService)
                 .environmentObject(settingsManager)
                 .environmentObject(refreshTimerService)
         } label: {
-//            Label("habBuddy", systemImage: "note.text")
             Label("HABbuddy", image: "menubar")
                 .labelStyle(.iconOnly)
         }

@@ -34,6 +34,7 @@ class ThingsListViewModel: ObservableObject {
                                                selector: #selector(timerFired),
                                                name: NSNotification.Name("TimerFired"),
                                                object: nil)
+        print("Observer added")
     }
 
     @MainActor
@@ -48,17 +49,13 @@ class ThingsListViewModel: ObservableObject {
         do {
             things = try await apiService.getJSON()
             things.sort { $0.viewLabel < $1.viewLabel }
-            withAnimation {
                 lastFetchFailed = false
-            }
         } catch {
             showAlert = true
             print("ERROR: \(error)")
             errorMessage = error.localizedDescription
             things = []
-            withAnimation {
                 lastFetchFailed = true
-            }
         }
     }
 

@@ -19,46 +19,45 @@ struct ThingsListView: View {
     @FocusState private var focusField: FocusField?
 
     var body: some View {
-        VStack(spacing: 0) {
-            headerView
+        NavigationStack {
+            headerBar
 
             if searchBarIsShown {
                 searchTextField
             }
 
             listView
-            .padding(.top, 0)
-            .overlay(content: {
-                if vm.isLoading {
-                    ProgressView()
-                }
-            })
-            .alert("Application Error", isPresented: $vm.showAlert, actions: {
-                Button("OK") {}
-            }, message: {
-                if let errorMessage = vm.errorMessage {
-                    Text(errorMessage)
-                }
-            })
-            .listStyle(.sidebar)
-            .task {
-                vm.addNotificationObserver()
-                await vm.fetchThings()
-                refreshTimerService.startRefreshTimerIfActivatedInSettings()
+
+            bottomBar
+        }
+        .padding(.top, 0)
+        .frame(minWidth: 350, idealWidth: 350, maxWidth: 350,
+                       minHeight: 800, idealHeight: 800, maxHeight: 1200,
+                       alignment: .topLeading)
+        .overlay(content: {
+            if vm.isLoading {
+                ProgressView()
             }
-            .onChange(of: settingsManager.settingsChanged) { _ in
-                Task {
-                    settingsManager.settingsChanged = false
-                    await vm.fetchThings()
-                }
+        })
+        .alert("Application Error", isPresented: $vm.showAlert, actions: {
+            Button("OK") {}
+        }, message: {
+            if let errorMessage = vm.errorMessage {
+                Text(errorMessage)
+            }
+        })
+        .listStyle(.sidebar)
+        .task {
+            vm.addNotificationObserver()
+            await vm.fetchThings()
+            refreshTimerService.startRefreshTimerIfActivatedInSettings()
+        }
+        .onChange(of: settingsManager.settingsChanged) { _ in
+            Task {
+                settingsManager.settingsChanged = false
+                await vm.fetchThings()
             }
         }
-//        .onReceive(refreshTimer, perform: { _ in
-//            print("updating")
-//            Task {
-//                await vm.fetchThings()
-//            }
-//        })
     }
 
     // Initializer is needed for passing the EO settingsManager to the ViewModel
@@ -83,7 +82,7 @@ struct ThingsListView_Previews: PreviewProvider {
 }
 
 extension ThingsListView {
-    private var headerView: some View {
+    private var headerBar: some View {
         HStack {
             Text("\(vm.amountOfThings) Things")
                 .font(.headline)
@@ -189,6 +188,30 @@ extension ThingsListView {
             .controlSize(.large)
         }
         .padding(10)
+    }
+
+    private var bottomBar: some View {
+        HStack(spacing: 0) {
+            NavigationLink {
+                SettingsView()
+            } label: {
+                Image(systemName: "gear")
+            }
+            .iconButtonStyle()
+            .help("Settings")
+
+            Spacer()
+
+            Button {
+                NSApp.terminate(nil)
+            } label: {
+                Image(systemName: "rectangle.portrait.and.arrow.right")
+            }
+            .iconButtonStyle()
+            .help("Quit")
+        }
+        .padding(10)
+        .background(.ultraThickMaterial)
     }
 
     enum FocusField: Hashable {

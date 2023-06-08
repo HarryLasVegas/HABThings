@@ -10,7 +10,6 @@
 		4A1619362A3086C300216277 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1619352A3086C300216277 /* View.swift */; };
 		4A4A90AF2A2B28C100B2362D /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4A90AE2A2B28C100B2362D /* Color.swift */; };
 		4A6577C82A1F777800A1E510 /* HabBuddyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6577C72A1F777800A1E510 /* HabBuddyApp.swift */; };
-		4A6577CA2A1F777800A1E510 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6577C92A1F777800A1E510 /* ContentView.swift */; };
 		4A6577CC2A1F777900A1E510 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A6577CB2A1F777900A1E510 /* Assets.xcassets */; };
 		4A6577CF2A1F777900A1E510 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A6577CE2A1F777900A1E510 /* Preview Assets.xcassets */; };
 		4A7D77DA2A2A28C9003D4F57 /* ThingsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7D77D92A2A28C9003D4F57 /* ThingsListView.swift */; };
@@ -29,7 +28,6 @@
 		4A4A90AE2A2B28C100B2362D /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Color.swift; path = HabBuddy/Extensions/Color.swift; sourceTree = SOURCE_ROOT; };
 		4A6577C42A1F777800A1E510 /* HabBuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HabBuddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A6577C72A1F777800A1E510 /* HabBuddyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabBuddyApp.swift; sourceTree = "<group>"; };
-		4A6577C92A1F777800A1E510 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		4A6577CB2A1F777900A1E510 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4A6577CE2A1F777900A1E510 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		4A6577D02A1F777900A1E510 /* HabBuddy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HabBuddy.entitlements; sourceTree = "<group>"; };
@@ -82,7 +80,6 @@
 				4A7D77D42A2A286D003D4F57 /* Models */,
 				4A6577D62A1F789A00A1E510 /* Info.plist */,
 				4A6577C72A1F777800A1E510 /* HabBuddyApp.swift */,
-				4A6577C92A1F777800A1E510 /* ContentView.swift */,
 				4A6577CB2A1F777900A1E510 /* Assets.xcassets */,
 				4A6577D02A1F777900A1E510 /* HabBuddy.entitlements */,
 				4A6577CD2A1F777900A1E510 /* Preview Content */,
@@ -242,7 +239,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4A6577CA2A1F777800A1E510 /* ContentView.swift in Sources */,
 				4A7D77DE2A2A28EA003D4F57 /* APIService.swift in Sources */,
 				4A4A90AF2A2B28C100B2362D /* Color.swift in Sources */,
 				4AA846CF2A2B757E001CE3A5 /* SettingsView.swift in Sources */,
