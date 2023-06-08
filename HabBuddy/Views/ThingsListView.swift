@@ -117,6 +117,7 @@ extension ThingsListView {
                                     Text(thing.viewStatus)
                                         .statusBeanStyle(bgColor: thing.viewStatusColor)
                                 }
+//                                .thingsBoxStyle()
                             }
                         }
                     } else {

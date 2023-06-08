@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ServiceManagement
 
 struct SettingsView: View {
     // no init needed because no viewModel
@@ -16,6 +17,8 @@ struct SettingsView: View {
 
     @AppStorage("selectedRefreshInterval") var selectedRefreshInterval: RefreshIntervalOptions = .seconds20
     @AppStorage("refreshRegularly") var refreshRegularly: Bool = false
+
+    @State private var launchOnLogin = SMAppService.mainApp.status == .enabled
 
     @State private var urlString: String = ""
     @State private var apiToken: String = ""
@@ -40,6 +43,18 @@ struct SettingsView: View {
                                                       apiToken: apiToken)
             settingsManager.settingsChanged = true
             presentationMode.wrappedValue.dismiss()
+        }
+    }
+
+    func toggleLaunchOnLogin() {
+        do {
+            if SMAppService.mainApp.status == .enabled {
+                try SMAppService.mainApp.unregister()
+            } else {
+                try SMAppService.mainApp.register()
+            }
+        } catch {
+            print(error)
         }
     }
 }
@@ -137,16 +152,12 @@ extension SettingsView {
 
                     Spacer()
 
-                    Toggle("", isOn: $refreshRegularly)
+                    Toggle("", isOn: $launchOnLogin)
                         .toggleStyle(.switch)
                         .labelsHidden()
-//                        .onChange(of: refreshRegularly) { refreshRegularly in
-//                            if refreshRegularly == true {
-//                                refreshTimerService.resetTimer()
-//                            } else {
-//                                refreshTimerService.stopRefreshTimer()
-//                            }
-//                        }
+                        .onChange(of: launchOnLogin) { _ in
+                            toggleLaunchOnLogin()
+                        }
                 }
             }
         }

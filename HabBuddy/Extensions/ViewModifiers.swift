@@ -48,6 +48,25 @@ extension View {
     }
 }
 
+// MARK: Things Boxes
+struct ThingsBoxModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .padding(10)
+            .background(.thinMaterial)
+            .overlay(
+                    RoundedRectangle(cornerRadius: 7)
+                        .stroke(.ultraThickMaterial, lineWidth: 1)
+            )
+    }
+}
+
+extension View {
+    func thingsBoxStyle() -> some View {
+        modifier(ThingsBoxModifier())
+    }
+}
+
 // Borderless buttons, non focusable
 struct IconButtonsModifier: ViewModifier {
     func body(content: Content) -> some View {
