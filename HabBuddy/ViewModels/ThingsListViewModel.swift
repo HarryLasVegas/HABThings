@@ -29,6 +29,7 @@ class ThingsListViewModel: ObservableObject {
     }
 
     // if the code of the function is exectued in init, the observer is added twice
+    // so it's added to the "task" of ThingsListView
     func addNotificationObserver() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(timerFired),

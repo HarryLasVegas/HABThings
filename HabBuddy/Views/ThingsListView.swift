@@ -52,11 +52,14 @@ struct ThingsListView: View {
             await vm.fetchThings()
             refreshTimerService.startRefreshTimerIfActivatedInSettings()
         }
-        .onChange(of: settingsManager.settingsChanged) { _ in
-            Task {
-                settingsManager.settingsChanged = false
-                await vm.fetchThings()
-            }
+        .onChange(of: settingsManager.settingsChanged) { settingsChangedState in
+            print("STATE CHANGED! 􀙬 to: \(settingsChangedState)")
+            // only fired if changed to true to prevent infinite loop
+            guard settingsChangedState else { return }
+                Task {
+                    settingsManager.settingsChanged = false
+                    await vm.fetchThings()
+                }
         }
     }
 
@@ -109,14 +112,18 @@ extension ThingsListView {
                     if vm.thingsWithStatusPresent(for: status.rawValue) {
                         ForEach(vm.filteredThings) { thing in
                             if thing.viewStatus.lowercased() == status.rawValue.lowercased() {
-                                HStack {
-                                    Text(thing.viewLabel)
-                                        .help(thing.viewLabel)
-                                    Spacer()
-                                    Text(thing.viewStatus)
-                                        .statusBeanStyle(bgColor: thing.viewStatusColor)
+                                NavigationLink {
+                                    ThingDetailView(thing: thing)
+                                } label: {
+                                    HStack {
+                                        Text(thing.viewLabel)
+                                            .help(thing.viewLabel)
+                                        Spacer()
+                                        Text(thing.viewStatus)
+                                            .statusBeanStyle(bgColor: thing.viewStatusColor)
+                                    }
+    //                                .thingsBoxStyle()
                                 }
-//                                .thingsBoxStyle()
                             }
                         }
                     } else {

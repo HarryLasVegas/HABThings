@@ -71,3 +71,14 @@ enum Status: String, Codable, CaseIterable {
         }
     }
 }
+
+extension StatusInfo {
+    static let mockStatusInfo = StatusInfo(status: Status.offline, description: "No description")
+}
+
+extension Thing {
+    static let mockThing = Thing(statusInfo: StatusInfo.mockStatusInfo,
+                                 label: "Example Thing",
+                                 uid: "1234",
+                                 location: "Living room")
+}
