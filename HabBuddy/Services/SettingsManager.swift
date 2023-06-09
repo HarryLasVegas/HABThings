@@ -18,18 +18,32 @@ class SettingsManager: ObservableObject {
 
     init() {
         getCredentialsFromKeychain()
-//        self.urlString = credentials.urlString
-//        self.apiToken = credentials.apiToken
     }
 
+    /// Gets the values for urlString and apiToken stored in the Keychain and
+    /// assigns them to the corresponding variables.
+    /// If a key is not present, the corresponding variable is set to an empty String
     func getCredentialsFromKeychain() {
         urlString = keyChain["urlString"] ?? ""
         apiToken = keyChain["apiToken"] ?? ""
-
     }
 
+    /// Saves the urlString and apiToken to the KeyChain if they contain any String values.
+    /// If not, the corresponding Key gets set to nil
     func saveCredentialsToKeychain(urlString: String, apiToken: String) {
-        keyChain["urlString"] = urlString
-        keyChain["apiToken"] =  apiToken
+        // Empty strings are not written to the KeyChain
+        // so if the given urlString or apiToken are empty
+        // the keys are set to nil
+        if urlString.isEmpty {
+            keyChain["urlString"] = nil
+        } else {
+            keyChain["urlString"] = urlString
+        }
+
+        if apiToken.isEmpty {
+            keyChain["apiToken"] = nil
+        } else {
+            keyChain["apiToken"] = apiToken
+        }
     }
 }

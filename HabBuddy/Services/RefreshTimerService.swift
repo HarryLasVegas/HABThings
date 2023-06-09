@@ -8,7 +8,7 @@
 import Foundation
 
 enum RefreshIntervalOptions: Int, CaseIterable {
-    case seconds2 = 2
+    case seconds2 = 5
     case seconds10 = 10
     case seconds20 = 20
     case seconds60 = 60
@@ -44,7 +44,7 @@ class RefreshTimerService: ObservableObject {
 
     }
 
-    func startRefreshTimerIfActivatedInSettings() {
+    func startRefreshTimerIfRefreshActivatedInSettings() {
         guard
             getRefreshIsActivated() == true
         else { return }
@@ -58,23 +58,20 @@ class RefreshTimerService: ObservableObject {
         timer = Timer.scheduledTimer(withTimeInterval: TimeInterval(duration.rawValue),
                                      repeats: true) { _ in
             NotificationCenter.default.post(name: NSNotification.Name("TimerFired"), object: nil)
-            print("Timer fired")
         }
         isActive = true
-        print("Timer activated: \(selectedUpdateInterval?.stringValue ?? "no value")")
     }
 
     func stopRefreshTimer() {
         timer?.invalidate()
         timer = nil
         isActive = false
-        print("Timer is deactivated")
     }
 
     func resetTimer() {
         stopRefreshTimer()
         if !isActive {
-            startRefreshTimerIfActivatedInSettings()
+            startRefreshTimerIfRefreshActivatedInSettings()
         }
     }
 }

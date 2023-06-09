@@ -14,19 +14,27 @@ import SwiftUI
 struct Thing: Codable, Identifiable {
     let statusInfo: StatusInfo?
     let label: String?
-    let uid: String?
-    let location: String?
 
     var id = UUID()
 
-    var viewLabel: String { label ?? "No name"}
+    private enum CodingKeys: String, CodingKey { case statusInfo, label}
+
+    var viewLabel: String { label ?? "-"}
     var viewStatus: String {
         if let statusString = statusInfo?.status?.rawValue {
             return statusString
         } else {
-            return "unknown"
+            return "-"
         }
     }
+    var viewStatusDescription: String {
+        if let statusDescriptionString = statusInfo?.description {
+            return statusDescriptionString
+        } else {
+            return "-"
+        }
+    }
+
     var viewStatusColor: Color {
         if let color = statusInfo?.status?.color {
             return color
@@ -34,8 +42,6 @@ struct Thing: Codable, Identifiable {
             return Color.theme.unknown
         }
     }
-
-    private enum CodingKeys: String, CodingKey { case statusInfo, label, uid, location }
 }
 
 struct StatusInfo: Codable {
@@ -73,12 +79,10 @@ enum Status: String, Codable, CaseIterable {
 }
 
 extension StatusInfo {
-    static let mockStatusInfo = StatusInfo(status: Status.offline, description: "No description")
+    static let mockStatusInfo = StatusInfo(status: Status.offline, description: "StatusDescription")
 }
 
 extension Thing {
     static let mockThing = Thing(statusInfo: StatusInfo.mockStatusInfo,
-                                 label: "Example Thing",
-                                 uid: "1234",
-                                 location: "Living room")
+                                 label: "Example Thing")
 }

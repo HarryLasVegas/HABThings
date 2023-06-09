@@ -8,16 +8,20 @@
 import SwiftUI
 
 extension View {
-    func onBackground(_ f: @escaping () -> Void) -> some View {
-        self.onReceive(
-            NotificationCenter.default.publisher(for: NSApplication.didResignActiveNotification),
-            perform: { _ in f() })
+    func insetGroupedStyle(header: String) -> some View {
+        return GroupBox(label: Text(header.uppercased())
+            .font(.headline)
+            .padding(.top)
+            .padding(.bottom, 0)) {
+                    VStack {
+                        self.padding(.vertical, 1)
+                    }.padding(.horizontal).padding(.vertical, 5)
+                }
     }
-
-    func onForeground(_ f: @escaping () -> Void) -> some View {
-        self.onReceive(
-            NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification),
-            perform: { _ in f() })
-    }
-
 }
+
+// Usage Example
+//    Section {
+//        ListCell(leading: "String", trailing: "String")
+//    }
+//    .insetGroupedStyle(header: "String")

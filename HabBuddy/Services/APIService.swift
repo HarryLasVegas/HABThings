@@ -13,10 +13,11 @@ struct APIService {
 
     func getJSON<T: Codable>(dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .deferredToDate,
                              keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys,
-                             dataDecodingStrategy: JSONDecoder.DataDecodingStrategy = .deferredToData)
+                             dataDecodingStrategy: JSONDecoder.DataDecodingStrategy = .deferredToData,
+                             apiEndpoint: APIEndpoint)
                                 async throws -> T {
 
-        let completeURL = "\(urlString)/rest/things"
+        let completeURL = "\(urlString)/rest/\(apiEndpoint.endPointString)"
 
         guard
             let url = URL(string: completeURL)
@@ -25,7 +26,6 @@ struct APIService {
         }
 
         do {
-            print("DO")
             let authorizationKey: String = "Bearer \(apiToken)"
 
             var request = URLRequest(url: url)
@@ -38,11 +38,10 @@ struct APIService {
                 let httpResponse = response as? HTTPURLResponse,
                 httpResponse.statusCode == 200
             else {
-                // TODO: alle Responsecodes abfangen
-                print(response)
+                // TODO: alle Responsecodes abfangen 401 ist der token
                 throw APIError.invalidResponseStatus
             }
-            print("HTTP Response: \(httpResponse.statusCode)")
+            print(httpResponse.statusCode)
 
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = dateDecodingStrategy
@@ -51,11 +50,8 @@ struct APIService {
 
             do {
                 let decodedData = try decoder.decode(T.self, from: data)
-                print("Returned decoded data")
                 return decodedData
             } catch {
-                print("Couldn't decode")
-                print(error)
                 throw APIError.decodingError(error.localizedDescription)
             }
         } catch {
@@ -75,12 +71,26 @@ enum APIError: Error, LocalizedError {
         case .invalidURL:
             return NSLocalizedString("The provided URL is not valid", comment: "")
         case .dataTaskError(let string):
-            return string   // the assocated value
+            return string + " Please check Settings for the right URL."  // the assocated value
         case .invalidResponseStatus:
             return NSLocalizedString("The API failed to issue a valid response", comment: "")
         case .decodingError(let string):
             return string
 
+        }
+    }
+}
+
+enum APIEndpoint {
+    case things
+    case items
+
+    var endPointString: String {
+        switch self {
+        case .things:
+            return "things"
+        case .items:
+            return "items"
         }
     }
 }

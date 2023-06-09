@@ -46,6 +46,7 @@ struct SettingsView: View {
         }
     }
 
+    /// Registers and deregisters the app to be started on login of user
     func toggleLaunchOnLogin() {
         do {
             if SMAppService.mainApp.status == .enabled {

@@ -25,7 +25,6 @@ class ThingsListViewModel: ObservableObject {
     init(settingsManager: SettingsManager, refreshTimerService: RefreshTimerService) {
         self.settingsManager = settingsManager
         self.refreshTimerService = refreshTimerService
-        print("init ThingsListViewModel")
     }
 
     // if the code of the function is exectued in init, the observer is added twice
@@ -35,7 +34,6 @@ class ThingsListViewModel: ObservableObject {
                                                selector: #selector(timerFired),
                                                name: NSNotification.Name("TimerFired"),
                                                object: nil)
-        print("Observer added")
     }
 
     @MainActor
@@ -43,17 +41,26 @@ class ThingsListViewModel: ObservableObject {
         fetchCredentials()
 
         let apiService = APIService(urlString: settingsManager.urlString, apiToken: settingsManager.apiToken)
-        isLoading.toggle()
-        defer {
-            isLoading.toggle()
+        Task {
+            withAnimation {
+                isLoading.toggle()
+            }
         }
+
+        defer {
+            Task {
+                withAnimation {
+                    isLoading.toggle()
+                }
+            }
+        }
+
         do {
-            things = try await apiService.getJSON()
+            things = try await apiService.getJSON(apiEndpoint: .things)
             things.sort { $0.viewLabel < $1.viewLabel }
                 lastFetchFailed = false
         } catch {
             showAlert = true
-            print("ERROR: \(error)")
             errorMessage = error.localizedDescription
             things = []
                 lastFetchFailed = true
@@ -86,7 +93,6 @@ class ThingsListViewModel: ObservableObject {
     }
 
     @objc private func timerFired() {
-        print("OBJ dings fired")
         Task {
             await fetchThings()
         }

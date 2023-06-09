@@ -50,10 +50,9 @@ struct ThingsListView: View {
         .task {
             vm.addNotificationObserver()
             await vm.fetchThings()
-            refreshTimerService.startRefreshTimerIfActivatedInSettings()
+            refreshTimerService.startRefreshTimerIfRefreshActivatedInSettings()
         }
         .onChange(of: settingsManager.settingsChanged) { settingsChangedState in
-            print("STATE CHANGED! 􀙬 to: \(settingsChangedState)")
             // only fired if changed to true to prevent infinite loop
             guard settingsChangedState else { return }
                 Task {
@@ -69,7 +68,6 @@ struct ThingsListView: View {
         let vm = ThingsListViewModel(settingsManager: settingsManager,
                                      refreshTimerService: refreshTimerService)
         _vm = StateObject(wrappedValue: vm)
-        print("Init of ThingsListView")
     }
 
 }
@@ -112,17 +110,12 @@ extension ThingsListView {
                     if vm.thingsWithStatusPresent(for: status.rawValue) {
                         ForEach(vm.filteredThings) { thing in
                             if thing.viewStatus.lowercased() == status.rawValue.lowercased() {
-                                NavigationLink {
-                                    ThingDetailView(thing: thing)
-                                } label: {
-                                    HStack {
-                                        Text(thing.viewLabel)
-                                            .help(thing.viewLabel)
-                                        Spacer()
-                                        Text(thing.viewStatus)
-                                            .statusBeanStyle(bgColor: thing.viewStatusColor)
-                                    }
-    //                                .thingsBoxStyle()
+                                HStack {
+                                    Text(thing.viewLabel)
+                                    Spacer()
+                                    Text(thing.viewStatus)
+                                        .statusBeanStyle(bgColor: thing.viewStatusColor)
+                                        .help(thing.viewStatusDescription)
                                 }
                             }
                         }
@@ -184,9 +177,9 @@ extension ThingsListView {
 
             Button {
                 vm.searchText = ""
-                withAnimation {
-                    searchBarIsShown.toggle()
-                }
+//                withAnimation {
+//                    searchBarIsShown.toggle()
+//                }
             } label: {
                 Image(systemName: "xmark.circle")
             }
