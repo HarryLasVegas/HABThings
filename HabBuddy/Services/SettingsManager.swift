@@ -34,16 +34,20 @@ class SettingsManager: ObservableObject {
         // Empty strings are not written to the KeyChain
         // so if the given urlString or apiToken are empty
         // the keys are set to nil
-        if urlString.isEmpty {
-            keyChain["urlString"] = nil
-        } else {
-            keyChain["urlString"] = urlString
-        }
+        // Is in Task because of a warning that it shouldn't be on the
+        // main thread
+//        Task {
+            if urlString.isEmpty {
+                keyChain["urlString"] = nil
+            } else {
+                keyChain["urlString"] = urlString
+            }
 
-        if apiToken.isEmpty {
-            keyChain["apiToken"] = nil
-        } else {
-            keyChain["apiToken"] = apiToken
-        }
+            if apiToken.isEmpty {
+                keyChain["apiToken"] = nil
+            } else {
+                keyChain["apiToken"] = apiToken
+            }
+//        }
     }
 }

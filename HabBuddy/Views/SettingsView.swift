@@ -40,7 +40,7 @@ struct SettingsView: View {
         .onDisappear {
 //            settingsManager.objectWillChange.send()
             settingsManager.saveCredentialsToKeychain(urlString: urlString,
-                                                      apiToken: apiToken)
+                                                          apiToken: apiToken)
             settingsManager.settingsChanged = true
             presentationMode.wrappedValue.dismiss()
         }

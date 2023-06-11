@@ -17,31 +17,54 @@ struct APIService {
                              apiEndpoint: APIEndpoint)
                                 async throws -> T {
 
-        let completeURL = "\(urlString)/rest/\(apiEndpoint.endPointString)"
-
-        guard
-            let url = URL(string: completeURL)
-        else {
-            throw APIError.invalidURL
-        }
-
         do {
+
+//            curl -X 'GET' \
+//              'https://Mydomain.de/rest/things' \
+//            --user  'myname@maildomain.de:MyPassword' \
+//              -H 'accept: application/json' \
+//              -H 'X-OPENHAB-TOKEN: oh.testdeletelater.ABwhfj5x5BT1i7QKzIhgRoxVXYZilzMaX0qDtueVox6W6W2fA06gGwJhDZePDQMQytVkAoobst9ndWiztmmg'
+
+
+
+
+            guard !urlString.isEmpty else { throw APIError.emptyURL }
+            guard !apiToken.isEmpty else { throw APIError.emptyAPItoken }
+
+            let completeURL = "\(urlString)/rest/\(apiEndpoint.endPointString)"
+
+            guard
+                let requestURL = URL(string: completeURL)
+            else {
+                throw APIError.invalidURL
+            }
+
             let authorizationKey: String = "Bearer \(apiToken)"
 
-            var request = URLRequest(url: url)
+            var request = URLRequest(url: requestURL)
             request.httpMethod = "GET"
             request.setValue("application/json", forHTTPHeaderField: "accept")
             request.setValue(authorizationKey, forHTTPHeaderField: "Authorization")
 
-            let (data, response) = try await URLSession.shared.data(for: request)
             guard
-                let httpResponse = response as? HTTPURLResponse,
-                httpResponse.statusCode == 200
+                let (data, response) = try? await URLSession.shared.data(for: request)
             else {
-                // TODO: alle Responsecodes abfangen 401 ist der token
+                throw APIError.couldntConnect
+            }
+            guard
+                let httpResponse = response as? HTTPURLResponse
+            else {
                 throw APIError.invalidResponseStatus
             }
-            print(httpResponse.statusCode)
+
+            guard httpResponse.statusCode == 200
+            else {
+                if httpResponse.statusCode == 401 {
+                    throw APIError.unauthorized
+                } else {
+                    throw APIError.invalidResponseStatus
+                }
+            }
 
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = dateDecodingStrategy
@@ -52,6 +75,7 @@ struct APIService {
                 let decodedData = try decoder.decode(T.self, from: data)
                 return decodedData
             } catch {
+                print("decoding error")
                 throw APIError.decodingError(error.localizedDescription)
             }
         } catch {
@@ -61,19 +85,31 @@ struct APIService {
 }
 
 enum APIError: Error, LocalizedError {
+    case emptyURL
+    case emptyAPItoken
     case invalidURL
-    case dataTaskError(String) // URLSession didn't work
+    case dataTaskError(String) // takes the error thrown in the do block
+    case couldntConnect
+    case unauthorized
     case invalidResponseStatus
     case decodingError(String)
 
     var errorDescription: String? {
         switch self {
+        case .emptyURL:
+            return NSLocalizedString("Please enter a URL in settings", comment: "")
+        case .emptyAPItoken:
+            return NSLocalizedString("Please enter an API-Token in settings", comment: "")
         case .invalidURL:
             return NSLocalizedString("The provided URL is not valid", comment: "")
         case .dataTaskError(let string):
-            return string + " Please check Settings for the right URL."  // the assocated value
+            return string // the associated value
+        case .couldntConnect:
+            return NSLocalizedString("Couldn't connect to server. Please check the URL in settings.", comment: "")
+        case .unauthorized:
+            return NSLocalizedString("Server responded unauthorized access. Please check your API-Token.", comment: "")
         case .invalidResponseStatus:
-            return NSLocalizedString("The API failed to issue a valid response", comment: "")
+            return NSLocalizedString("The API failed to issue a valid response.", comment: "")
         case .decodingError(let string):
             return string
 
@@ -91,6 +127,25 @@ enum APIEndpoint {
             return "things"
         case .items:
             return "items"
+        }
+    }
+}
+
+enum ServerType {
+    case local
+    case myOpenHAB
+    case otherCloudInstance
+
+    var request: URLRequest {
+        switch self {
+        case .local:
+            <#code#>
+        case .myOpenHAB:
+            let user = ""
+            let password = ""
+            let apiToken = 
+        case .otherCloudInstance:
+            <#code#>
         }
     }
 }
