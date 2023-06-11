@@ -56,7 +56,7 @@ class ThingsListViewModel: ObservableObject {
         }
 
         do {
-            things = try await apiService.getJSON(apiEndpoint: .things)
+            things = try await apiService.getJSON(apiEndpoint: .things, server: .local(url: <#T##String#>, apiToken: <#T##String#>))
             things.sort { $0.viewLabel < $1.viewLabel }
                 lastFetchFailed = false
         } catch {

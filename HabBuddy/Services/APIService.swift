@@ -14,7 +14,8 @@ struct APIService {
     func getJSON<T: Codable>(dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .deferredToDate,
                              keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys,
                              dataDecodingStrategy: JSONDecoder.DataDecodingStrategy = .deferredToData,
-                             apiEndpoint: APIEndpoint)
+                             apiEndpoint: APIEndpoint,
+                             server: ServerType)
                                 async throws -> T {
 
         do {
@@ -132,20 +133,18 @@ enum APIEndpoint {
 }
 
 enum ServerType {
-    case local
-    case myOpenHAB
-    case otherCloudInstance
+    case local(url: String, apiToken: String)
+    case myOpenHAB(user: String, password: String, apiToken: String)
+    case otherCloudInstance(url: String, user: String, password: String, apiToken: String)
 
     var request: URLRequest {
         switch self {
         case .local:
-            <#code#>
+            return URLRequest(url: URL(string: "http://www.groundshots.de")! )
         case .myOpenHAB:
-            let user = ""
-            let password = ""
-            let apiToken = 
+            return URLRequest(url: URL(string: "http://www.groundshots.de")! )
         case .otherCloudInstance:
-            <#code#>
+            return URLRequest(url: URL(string: "http://www.groundshots.de")! )
         }
     }
 }
