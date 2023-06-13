@@ -7,15 +7,14 @@
 
 import Foundation
 
-struct APIService {
-    let urlString: String
-    let apiToken: String
+class APIService {
+    static let shared = APIService()
+
+    private init() {}
 
     func getJSON<T: Codable>(dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .deferredToDate,
                              keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys,
-                             dataDecodingStrategy: JSONDecoder.DataDecodingStrategy = .deferredToData,
-                             apiEndpoint: APIEndpoint,
-                             server: ServerType)
+                             dataDecodingStrategy: JSONDecoder.DataDecodingStrategy = .deferredToData)
                                 async throws -> T {
 
         do {
@@ -24,28 +23,16 @@ struct APIService {
 //              'https://Mydomain.de/rest/things' \
 //            --user  'myname@maildomain.de:MyPassword' \
 //              -H 'accept: application/json' \
-//              -H 'X-OPENHAB-TOKEN: oh.testdeletelater.ABwhfj5x5BT1i7QKzIhgRoxVXYZilzMaX0qDtueVox6W6W2fA06gGwJhDZePDQMQytVkAoobst9ndWiztmmg'
+//              -H 'X-OPENHAB-TOKEN: oh.testdeletelater.ABwhfj5x5BT1i7QKzIhgRoxVXYZilzMaX0
+            // qDtueVox6W6W2fA06gGwJhDZePDQMQytVkAoobst9ndWiztmmg'
+//            guard
+//                let request = try? RequestGenerator(keyChainManager: keyChainManager).generatedRequest()
+//            else {
+//                throw error
+//            }
 
-
-
-
-            guard !urlString.isEmpty else { throw APIError.emptyURL }
-            guard !apiToken.isEmpty else { throw APIError.emptyAPItoken }
-
-            let completeURL = "\(urlString)/rest/\(apiEndpoint.endPointString)"
-
-            guard
-                let requestURL = URL(string: completeURL)
-            else {
-                throw APIError.invalidURL
-            }
-
-            let authorizationKey: String = "Bearer \(apiToken)"
-
-            var request = URLRequest(url: requestURL)
-            request.httpMethod = "GET"
-            request.setValue("application/json", forHTTPHeaderField: "accept")
-            request.setValue(authorizationKey, forHTTPHeaderField: "Authorization")
+//            do {
+            let request = try await RequestGenerator.shared.generatedRequest()
 
             guard
                 let (data, response) = try? await URLSession.shared.data(for: request)
@@ -80,6 +67,7 @@ struct APIService {
                 throw APIError.decodingError(error.localizedDescription)
             }
         } catch {
+            // takes any error thrown in the above
             throw APIError.dataTaskError(error.localizedDescription)
         }
     }
@@ -104,7 +92,7 @@ enum APIError: Error, LocalizedError {
         case .invalidURL:
             return NSLocalizedString("The provided URL is not valid", comment: "")
         case .dataTaskError(let string):
-            return string // the associated value
+            return string
         case .couldntConnect:
             return NSLocalizedString("Couldn't connect to server. Please check the URL in settings.", comment: "")
         case .unauthorized:
@@ -114,37 +102,6 @@ enum APIError: Error, LocalizedError {
         case .decodingError(let string):
             return string
 
-        }
-    }
-}
-
-enum APIEndpoint {
-    case things
-    case items
-
-    var endPointString: String {
-        switch self {
-        case .things:
-            return "things"
-        case .items:
-            return "items"
-        }
-    }
-}
-
-enum ServerType {
-    case local(url: String, apiToken: String)
-    case myOpenHAB(user: String, password: String, apiToken: String)
-    case otherCloudInstance(url: String, user: String, password: String, apiToken: String)
-
-    var request: URLRequest {
-        switch self {
-        case .local:
-            return URLRequest(url: URL(string: "http://www.groundshots.de")! )
-        case .myOpenHAB:
-            return URLRequest(url: URL(string: "http://www.groundshots.de")! )
-        case .otherCloudInstance:
-            return URLRequest(url: URL(string: "http://www.groundshots.de")! )
         }
     }
 }

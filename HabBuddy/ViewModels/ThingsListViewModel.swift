@@ -19,11 +19,9 @@ class ThingsListViewModel: ObservableObject {
     @Published var lastFetchFailed: Bool?
     @Published var searchText = ""
 
-    private var settingsManager: SettingsManager
     private var refreshTimerService: RefreshTimerService
 
-    init(settingsManager: SettingsManager, refreshTimerService: RefreshTimerService) {
-        self.settingsManager = settingsManager
+    init(refreshTimerService: RefreshTimerService) {
         self.refreshTimerService = refreshTimerService
     }
 
@@ -38,9 +36,6 @@ class ThingsListViewModel: ObservableObject {
 
     @MainActor
     func fetchThings() async {
-        fetchCredentials()
-
-        let apiService = APIService(urlString: settingsManager.urlString, apiToken: settingsManager.apiToken)
         Task {
             withAnimation {
                 isLoading.toggle()
@@ -56,7 +51,7 @@ class ThingsListViewModel: ObservableObject {
         }
 
         do {
-            things = try await apiService.getJSON(apiEndpoint: .things, server: .local(url: <#T##String#>, apiToken: <#T##String#>))
+            things = try await APIService.shared.getJSON()
             things.sort { $0.viewLabel < $1.viewLabel }
                 lastFetchFailed = false
         } catch {
@@ -65,10 +60,6 @@ class ThingsListViewModel: ObservableObject {
             things = []
                 lastFetchFailed = true
         }
-    }
-
-    func fetchCredentials() {
-        settingsManager.getCredentialsFromKeychain()
     }
 
     // checks if there are things with the given status - the searchfilter is regarded!

@@ -10,10 +10,8 @@ import ServiceManagement
 
 struct SettingsView: View {
     // no init needed because no viewModel
-    // the settingsManager is passed in by the ".environmentObject" in the APP struct
-    @EnvironmentObject var settingsManager: SettingsManager
+    // the refreshtimerservice is passed in by the ".environmentObject" in the APP struct
     @EnvironmentObject var refreshTimerService: RefreshTimerService
-    @Environment(\.presentationMode) var presentationMode
 
     @AppStorage("selectedRefreshInterval") var selectedRefreshInterval: RefreshIntervalOptions = .seconds20
     @AppStorage("refreshRegularly") var refreshRegularly: Bool = false
@@ -22,6 +20,8 @@ struct SettingsView: View {
 
     @State private var urlString: String = ""
     @State private var apiToken: String = ""
+    @State private var userName: String = ""
+    @State private var password: String = ""
 
     var body: some View {
         VStack {
@@ -34,15 +34,10 @@ struct SettingsView: View {
         .navigationTitle("Settings")
         .padding(10)
         .task {
-            urlString = settingsManager.urlString
-            apiToken = settingsManager.apiToken
+            getCredentials()
         }
         .onDisappear {
-//            settingsManager.objectWillChange.send()
-            settingsManager.saveCredentialsToKeychain(urlString: urlString,
-                                                          apiToken: apiToken)
-            settingsManager.settingsChanged = true
-            presentationMode.wrappedValue.dismiss()
+            saveCredentials()
         }
     }
 
@@ -57,6 +52,21 @@ struct SettingsView: View {
         } catch {
             print(error)
         }
+    }
+
+    func getCredentials() {
+        let credentials = KeyChainManager.shared.getCredentialsFromKeychain()
+        urlString = credentials.urlString
+        apiToken = credentials.apiToken
+        userName = credentials.userName
+        password = credentials.password
+    }
+
+    func saveCredentials() {
+        KeyChainManager.shared.saveCredentialsToKeychain(urlString: urlString,
+                                                         apiToken: apiToken,
+                                                         userName: userName,
+                                                         password: password)
     }
 }
 

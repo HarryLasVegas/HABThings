@@ -10,15 +10,12 @@ import KeychainAccess
 
 @main
 struct HabBuddyApp: App {
-    @StateObject var settingsManager = SettingsManager()
     @StateObject var refreshTimerService = RefreshTimerService()
 
     var body: some Scene {
         MenuBarExtra {
 //            ContentView()
-            ThingsListView(settingsManager: settingsManager,
-                           refreshTimerService: refreshTimerService)
-                .environmentObject(settingsManager)
+            ThingsListView(refreshTimerService: refreshTimerService)
                 .environmentObject(refreshTimerService)
         } label: {
             Label("HABbuddy", image: "menubar")

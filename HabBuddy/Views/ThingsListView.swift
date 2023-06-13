@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ThingsListView: View {
     @StateObject var vm: ThingsListViewModel
-    @EnvironmentObject var settingsManager: SettingsManager
     @EnvironmentObject var refreshTimerService: RefreshTimerService
 
     @State private var refreshButtonAnimation = false
@@ -48,25 +47,24 @@ struct ThingsListView: View {
         })
         .listStyle(.sidebar)
         .task {
+            print("APPPPPPPPPPERRRRRRRRR")
             vm.addNotificationObserver()
             await vm.fetchThings()
             refreshTimerService.startRefreshTimerIfRefreshActivatedInSettings()
         }
-        .onChange(of: settingsManager.settingsChanged) { settingsChangedState in
-            // only fired if changed to true to prevent infinite loop
-            guard settingsChangedState else { return }
-                Task {
-                    settingsManager.settingsChanged = false
-                    await vm.fetchThings()
-                }
-        }
+//        .onChange(of: keyChainManager.settingsChanged) { settingsChangedState in
+//            // only fired if changed to true to prevent infinite loop
+//            guard settingsChangedState else { return }
+//                Task {
+//                    keyChainManager.settingsChanged = false
+//                    await vm.fetchThings()
+//                }
+//        }
     }
 
-    // Initializer is needed for passing the EO settingsManager to the ViewModel
-    init(settingsManager: SettingsManager,
-         refreshTimerService: RefreshTimerService) {
-        let vm = ThingsListViewModel(settingsManager: settingsManager,
-                                     refreshTimerService: refreshTimerService)
+    // Initializer is needed for passing the EO keyChainManager to the ViewModel
+    init(refreshTimerService: RefreshTimerService) {
+        let vm = ThingsListViewModel(refreshTimerService: refreshTimerService)
         _vm = StateObject(wrappedValue: vm)
     }
 
@@ -74,11 +72,8 @@ struct ThingsListView: View {
 
 struct ThingsListView_Previews: PreviewProvider {
     static var previews: some View {
-        let settingsManager = SettingsManager()
         let refreshTimerService = RefreshTimerService()
-        ThingsListView(settingsManager: settingsManager,
-                       refreshTimerService: refreshTimerService)
-        .environmentObject(settingsManager)
+        ThingsListView(refreshTimerService: refreshTimerService)
     }
 }
 
@@ -125,12 +120,14 @@ extension ThingsListView {
                 }
             }
         }
+        .task {
+            print("hallo")
+        }
     }
 
     private var refreshButton: some View {
         Button {
             Task {
-                vm.fetchCredentials()
                 await vm.fetchThings()
             }
             refreshButtonAnimation.toggle()
@@ -177,9 +174,6 @@ extension ThingsListView {
 
             Button {
                 vm.searchText = ""
-//                withAnimation {
-//                    searchBarIsShown.toggle()
-//                }
             } label: {
                 Image(systemName: "xmark.circle")
             }
