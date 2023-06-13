@@ -15,6 +15,10 @@ struct ThingsListView: View {
     @State private var refreshButtonRotationAngle: Double = 0
     @State private var searchBarIsShown = false
 
+    // needed so that the view updates after leaving settings
+    // (together with .onchange)
+    @State private var shouldRefresh = false
+
     @FocusState private var focusField: FocusField?
 
     var body: some View {
@@ -47,22 +51,18 @@ struct ThingsListView: View {
         })
         .listStyle(.sidebar)
         .task {
-            print("APPPPPPPPPPERRRRRRRRR")
             vm.addNotificationObserver()
             await vm.fetchThings()
             refreshTimerService.startRefreshTimerIfRefreshActivatedInSettings()
         }
-//        .onChange(of: keyChainManager.settingsChanged) { settingsChangedState in
-//            // only fired if changed to true to prevent infinite loop
-//            guard settingsChangedState else { return }
-//                Task {
-//                    keyChainManager.settingsChanged = false
-//                    await vm.fetchThings()
-//                }
-//        }
+        .onChange(of: shouldRefresh) { _ in
+            Task {
+                await vm.fetchThings()
+            }
+        }
     }
 
-    // Initializer is needed for passing the EO keyChainManager to the ViewModel
+    // Initializer is needed for passing the EO refreshTimerService to the ViewModel
     init(refreshTimerService: RefreshTimerService) {
         let vm = ThingsListViewModel(refreshTimerService: refreshTimerService)
         _vm = StateObject(wrappedValue: vm)
@@ -119,9 +119,6 @@ extension ThingsListView {
                     }
                 }
             }
-        }
-        .task {
-            print("hallo")
         }
     }
 
@@ -187,7 +184,7 @@ extension ThingsListView {
     private var bottomBar: some View {
         HStack(spacing: 0) {
             NavigationLink {
-                SettingsView()
+                SettingsView(shouldRefresh: $shouldRefresh)
             } label: {
                 Image(systemName: "gear")
             }

@@ -18,6 +18,8 @@ struct SettingsView: View {
 
     @State private var launchOnLogin = SMAppService.mainApp.status == .enabled
 
+    @Binding var shouldRefresh: Bool
+
     @State private var urlString: String = ""
     @State private var apiToken: String = ""
     @State private var userName: String = ""
@@ -38,6 +40,7 @@ struct SettingsView: View {
         }
         .onDisappear {
             saveCredentials()
+            shouldRefresh.toggle()
         }
     }
 
@@ -70,11 +73,11 @@ struct SettingsView: View {
     }
 }
 
-struct SettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        SettingsView()
-    }
-}
+// struct SettingsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SettingsView()
+//    }
+// }
 
 extension SettingsView {
     private var accessDataBox: some View {

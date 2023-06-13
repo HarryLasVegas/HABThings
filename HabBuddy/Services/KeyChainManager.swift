@@ -13,7 +13,6 @@ class KeyChainManager {
 
     private let keyChain = Keychain(service: "de.stephanweber.HabBuddy")
 
-
     private init() {}
 
     /// Gets the values for urlString, apiToken, userName and password
