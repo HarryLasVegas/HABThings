@@ -14,7 +14,8 @@ class APIService {
 
     func getJSON<T: Codable>(dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .deferredToDate,
                              keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys,
-                             dataDecodingStrategy: JSONDecoder.DataDecodingStrategy = .deferredToData)
+                             dataDecodingStrategy: JSONDecoder.DataDecodingStrategy = .deferredToData,
+                             apiEndpoint: APIEndpoint)
                                 async throws -> T {
 
         do {
@@ -32,7 +33,7 @@ class APIService {
 //            }
 
 //            do {
-            let request = try await RequestGenerator.shared.generatedRequest()
+            let request = try await RequestGenerator.shared.generatedRequest(apiEndpoint: apiEndpoint)
 
             guard
                 let (data, response) = try? await URLSession.shared.data(for: request)

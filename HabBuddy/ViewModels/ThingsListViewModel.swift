@@ -51,7 +51,7 @@ class ThingsListViewModel: ObservableObject {
         }
 
         do {
-            things = try await APIService.shared.getJSON()
+            things = try await APIService.shared.getJSON(apiEndpoint: .things)
             things.sort { $0.viewLabel < $1.viewLabel }
                 lastFetchFailed = false
         } catch {

@@ -15,14 +15,16 @@ struct SettingsView: View {
 
     @AppStorage("selectedRefreshInterval") var selectedRefreshInterval: RefreshIntervalOptions = .seconds20
     @AppStorage("refreshRegularly") var refreshRegularly: Bool = false
+    @AppStorage("selectedServerType") var selectedServerType: ServerType = .local
 
     @State private var launchOnLogin = SMAppService.mainApp.status == .enabled
 
+    // needed to update the view when returning from SettingsView
     @Binding var shouldRefresh: Bool
 
     @State private var urlString: String = ""
     @State private var apiToken: String = ""
-    @State private var userName: String = ""
+    @State private var eMail: String = ""
     @State private var password: String = ""
 
     var body: some View {
@@ -33,6 +35,7 @@ struct SettingsView: View {
 
             launchOnLoginBox
         }
+        .animation(.easeOut(duration: 0.3), value: selectedServerType)
         .navigationTitle("Settings")
         .padding(10)
         .task {
@@ -61,23 +64,23 @@ struct SettingsView: View {
         let credentials = KeyChainManager.shared.getCredentialsFromKeychain()
         urlString = credentials.urlString
         apiToken = credentials.apiToken
-        userName = credentials.userName
+        eMail = credentials.eMail
         password = credentials.password
     }
 
     func saveCredentials() {
         KeyChainManager.shared.saveCredentialsToKeychain(urlString: urlString,
                                                          apiToken: apiToken,
-                                                         userName: userName,
+                                                         eMail: eMail,
                                                          password: password)
     }
 }
 
-// struct SettingsView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SettingsView()
-//    }
-// }
+ struct SettingsView_Previews: PreviewProvider {
+    static var previews: some View {
+        SettingsView(shouldRefresh: .constant(true))
+    }
+ }
 
 extension SettingsView {
     private var accessDataBox: some View {
@@ -86,32 +89,63 @@ extension SettingsView {
                 .labelStyle(ColorfulIconLabelStyle(color: .blue))
                 .padding(.bottom)
 
-            VStack(alignment: .leading, spacing: 2) {
-                Text("URL to openHAB server:")
-                    .offset(x: 3)
-                TextField("e.g. http://192.168.1.78:8080", text: $urlString, axis: .vertical)
-            }
-            .padding(.bottom)
-
-            VStack(alignment: .leading, spacing: 2) {
-                Text("API-Token:")
-                    .offset(x: 3)
-                TextField("API-Token", text: $apiToken, axis: .vertical)
-                    .lineLimit(4...5)
+            VStack(alignment: .leading, spacing: 5) {
+                Text("Type of openHAB server")
+                Picker("", selection: $selectedServerType) {
+                    ForEach(ServerType.allCases, id: \.self) {
+                        Text($0.serverTypeViewString)
+                    }
+                }
+                .pickerStyle(.radioGroup)
             }
 
+            Spacer()
+                .frame(height: 30)
+
+            switch selectedServerType {
+            case .local, .otherCloudInstance:
+                CredentialsTextField(label: "URL to openHAB server",
+                                     placeholder: "e.g. http://192.168.1.78:8080",
+                                     fieldValue: $urlString)
+            default:
+                EmptyView()
+            }
+
+            switch selectedServerType {
+            case .myOpenHAB, .otherCloudInstance:
+                CredentialsTextField(label: "E-Mail",
+                                     placeholder: "E-Mail",
+                                     fieldValue: $eMail)
+                CredentialsTextField(label: "Password",
+                                     placeholder: "Password",
+                                     fieldValue: $password)
+            default:
+                EmptyView()
+            }
+
+            CredentialsTextField(label: "API-Token", placeholder: "API-Token", fieldValue: $apiToken)
+
+            helpTextSegment
             // swiftlint:disable line_length
-            Group {
-                Text(verbatim: "Please enter the network address(URL) of your openHAB server (including the port). It usually looks someting like this: \n'http://192.168.1.78:8080'.")
+//            Group {
+//                Text(verbatim: "Please enter the network address(URL) of your openHAB server (including the port). It usually looks someting like this: \n'http://192.168.1.78:8080'.")
+//
+//                Text("Please also enter an API-Token. You can generate a new one in the admin area of openHAB. If you need help, here are the offical instructions: https://www.openhab.org/docs/configuration/apitokens.html")
+//            }
+//            .foregroundColor(.secondary)
+//            .font(.subheadline)
+//            .padding(.bottom)
+            // swiftlint:enable line_length
+        }
+        .textFieldStyle(.roundedBorder)
+        .settingsBoxStyle()
+    }
 
-                Text("Please also enter an API-Token. You can generate a new one in the admin area of openHAB. If you need help, here are the offical instructions: https://www.openhab.org/docs/configuration/apitokens.html")
-            }
+    private var helpTextSegment: some View {
+        Text(selectedServerType.helpText)
             .foregroundColor(.secondary)
             .font(.subheadline)
             .padding(.bottom)
-            // swiftlint:enable line_length
-        }
-        .settingsBoxStyle()
     }
 
     private var refreshBox: some View {

@@ -15,27 +15,28 @@ class KeyChainManager {
 
     private init() {}
 
-    /// Gets the values for urlString, apiToken, userName and password
+    /// Gets the values for urlString, apiToken, eMail and password
     /// stored in the Keychain and  returns them.
     /// If a key is not present, the corresponding variable is set to an empty String
     // swiftlint:disable:netxt large_tuple
     func getCredentialsFromKeychain() -> (urlString: String,
                                           apiToken: String,
-                                          userName: String,
+                                          eMail: String,
                                           password: String) {
         let urlString = keyChain["urlString"] ?? ""
         let apiToken = keyChain["apiToken"] ?? ""
-        let userName = keyChain["userName"] ?? ""
+        let eMail = keyChain["eMail"] ?? ""
         let password = keyChain["password"] ?? ""
 
-        return(urlString, apiToken, userName, password)
+        return(urlString, apiToken, eMail, password)
     }
 
-    /// Saves the urlString and apiToken to the KeyChain if they contain any String values.
+    /// Saves the urlString, apiToken, eMail and password to the KeyChain
+    /// if they contain any String values.
     /// If not, the corresponding Key gets set to nil
     func saveCredentialsToKeychain(urlString: String,
                                    apiToken: String,
-                                   userName: String,
+                                   eMail: String,
                                    password: String) {
         // Empty strings are not written to the KeyChain
         // It would just stay the same as before
@@ -53,10 +54,10 @@ class KeyChainManager {
             keyChain["apiToken"] = apiToken
         }
 
-        if userName.isEmpty {
-            keyChain["userName"] = nil
+        if eMail.isEmpty {
+            keyChain["eMail"] = nil
         } else {
-            keyChain["userName"] = userName
+            keyChain["eMail"] = eMail
         }
 
         if password.isEmpty {

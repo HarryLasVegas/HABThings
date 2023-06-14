@@ -9,18 +9,19 @@ import Foundation
 
 class RequestGenerator {
     static let shared = RequestGenerator()
-
-    let apiEndpoint: APIEndpoint = .things
-
     private init() {}
 
-    @MainActor func generatedRequest() throws -> URLRequest {
+    @MainActor func generatedRequest(apiEndpoint: APIEndpoint) throws -> URLRequest {
         let credentials = KeyChainManager.shared.getCredentialsFromKeychain()
-
         let urlString = credentials.urlString
         let apiToken = credentials.apiToken
-        let userName = credentials.userName
+        let eMail = credentials.eMail
         let password = credentials.password
+
+        let selectedServerType: ServerType = ServerType(
+            rawValue: UserDefaults.standard.string(forKey: "selectedServerType")!
+        ) ?? .local
+        // TODO: Here
 
         guard !urlString.isEmpty else { throw APIError.emptyURL}
         guard !apiToken.isEmpty else { throw APIError.emptyAPItoken}
@@ -41,6 +42,7 @@ class RequestGenerator {
         request.setValue(authorizationKey, forHTTPHeaderField: "Authorization")
 
         return request
+        }
 }
 
 enum APIEndpoint {
@@ -57,10 +59,37 @@ enum APIEndpoint {
     }
 }
 
-enum ServerType {
-    case local(url: String, apiToken: String)
-    case myOpenHAB(user: String, password: String, apiToken: String)
-    case otherCloudInstance(url: String, user: String, password: String, apiToken: String)
+enum ServerType: String, CaseIterable {
+    case local
+    case myOpenHAB
+    case otherCloudInstance
+
+    var serverTypeViewString: String {
+        switch self {
+        case .local:
+            return "Local"
+        case .myOpenHAB:
+            return "OpenHAB Cloud (myopenhab.org)"
+        case .otherCloudInstance:
+            return "Self hosted openHAB cloud service"
+        }
+    }
+
+    // TODO: Help Texts
+    //    Text(verbatim: "Please enter the network address(URL) of your openHAB server
+    // (including the port). It usually looks someting like this: \n'http://192.168.1.78:8080'.")
+    //    Text("Please also enter an API-Token. You can generate a new one in the admin area of openHAB.
+    // If you need help, here are the offical instructions: https://www.openhab.org/docs/configuration/apitokens.html")
+    var helpText: String {
+        switch self {
+        case .local:
+            return "local helptext"
+        case .myOpenHAB:
+            return "myopenHab helptext"
+        case .otherCloudInstance:
+            return "own helptext"
+        }
+    }
 
 //    var request: URLRequest {
 //        switch self {
@@ -72,4 +101,3 @@ enum ServerType {
 //            return URLRequest(url: URL(string: "http://www.groundshots.de")! )
 //        }
     }
-}
