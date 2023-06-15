@@ -24,15 +24,28 @@ struct Thing: Codable, Identifiable {
         if let statusString = statusInfo?.status?.rawValue {
             return statusString
         } else {
-            return "-"
+            return ""
         }
     }
-    var viewStatusDescription: String {
-        if let statusDescriptionString = statusInfo?.description {
-            return statusDescriptionString
-        } else {
-            return "-"
+
+    // TODO: find a nicer solution
+    var viewDetails: String {
+        var returnString = ""
+
+        if let statusDetailString = statusInfo?.statusDetail,
+           statusDetailString != "NONE" {
+            returnString.append(statusDetailString)
         }
+
+        if let statusDescriptionString = statusInfo?.description {
+            if returnString.isEmpty {
+                returnString.append(statusDescriptionString)
+            } else {
+                returnString.append(" ")
+                returnString.append(statusDescriptionString)
+            }
+        }
+        return returnString
     }
 
     var viewStatusColor: Color {
@@ -42,10 +55,27 @@ struct Thing: Codable, Identifiable {
             return Color.theme.unknown
         }
     }
+
+//    var viewStatusDescription: String {
+//            if let statusDescriptionString = statusInfo?.description {
+//                return statusDescriptionString
+//            } else {
+//                return ""
+//            }
+//    }
+//
+//    var viewStatusDetail: String {
+//        guard
+//            let statusDetailString = statusInfo?.statusDetail,
+//            statusDetailString != "NONE"
+//        else { return "" }
+//        return statusDetailString
+//    }
 }
 
 struct StatusInfo: Codable {
     let status: Status?
+    let statusDetail: String?
     let description: String?
 }
 
@@ -79,7 +109,7 @@ enum Status: String, Codable, CaseIterable {
 }
 
 extension StatusInfo {
-    static let mockStatusInfo = StatusInfo(status: Status.offline, description: "StatusDescription")
+    static let mockStatusInfo = StatusInfo(status: Status.offline, statusDetail: "Detail", description: "Description")
 }
 
 extension Thing {

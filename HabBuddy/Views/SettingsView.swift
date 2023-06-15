@@ -35,7 +35,7 @@ struct SettingsView: View {
 
             launchOnLoginBox
         }
-        .animation(.easeOut(duration: 0.3), value: selectedServerType)
+        .animation(.easeInOut(duration: 0.3), value: selectedServerType)
         .navigationTitle("Settings")
         .padding(10)
         .task {
@@ -126,23 +126,13 @@ extension SettingsView {
             CredentialsTextField(label: "API-Token", placeholder: "API-Token", fieldValue: $apiToken)
 
             helpTextSegment
-            // swiftlint:disable line_length
-//            Group {
-//                Text(verbatim: "Please enter the network address(URL) of your openHAB server (including the port). It usually looks someting like this: \n'http://192.168.1.78:8080'.")
-//
-//                Text("Please also enter an API-Token. You can generate a new one in the admin area of openHAB. If you need help, here are the offical instructions: https://www.openhab.org/docs/configuration/apitokens.html")
-//            }
-//            .foregroundColor(.secondary)
-//            .font(.subheadline)
-//            .padding(.bottom)
-            // swiftlint:enable line_length
         }
         .textFieldStyle(.roundedBorder)
         .settingsBoxStyle()
     }
 
     private var helpTextSegment: some View {
-        Text(selectedServerType.helpText)
+        Text(LocalizedStringKey(selectedServerType.helpText))
             .foregroundColor(.secondary)
             .font(.subheadline)
             .padding(.bottom)

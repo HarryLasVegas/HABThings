@@ -18,7 +18,7 @@ class KeyChainManager {
     /// Gets the values for urlString, apiToken, eMail and password
     /// stored in the Keychain and  returns them.
     /// If a key is not present, the corresponding variable is set to an empty String
-    // swiftlint:disable:netxt large_tuple
+    // swiftlint:disable:next large_tuple
     func getCredentialsFromKeychain() -> (urlString: String,
                                           apiToken: String,
                                           eMail: String,

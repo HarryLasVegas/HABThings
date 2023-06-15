@@ -70,13 +70,6 @@ struct ThingsListView: View {
 
 }
 
-struct ThingsListView_Previews: PreviewProvider {
-    static var previews: some View {
-        let refreshTimerService = RefreshTimerService()
-        ThingsListView(refreshTimerService: refreshTimerService)
-    }
-}
-
 extension ThingsListView {
     private var headerBar: some View {
         HStack {
@@ -110,7 +103,7 @@ extension ThingsListView {
                                     Spacer()
                                     Text(thing.viewStatus)
                                         .statusBeanStyle(bgColor: thing.viewStatusColor)
-                                        .help(thing.viewStatusDescription)
+                                        .help(thing.viewDetails)
                                 }
                             }
                         }
@@ -208,4 +201,11 @@ extension ThingsListView {
     enum FocusField: Hashable {
         case searchField
       }
+
+    struct ThingsListView_Previews: PreviewProvider {
+        static var previews: some View {
+            let refreshTimerService = RefreshTimerService()
+            ThingsListView(refreshTimerService: refreshTimerService)
+        }
+    }
 }
