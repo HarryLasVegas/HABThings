@@ -22,6 +22,9 @@ struct SettingsView: View {
     // needed to update the view when returning from SettingsView
     @Binding var shouldRefresh: Bool
 
+
+    // TODO: Round Border around Boxes
+    // TODO: Check lightmode
     @State private var urlString: String = ""
     @State private var apiToken: String = ""
     @State private var eMail: String = ""
