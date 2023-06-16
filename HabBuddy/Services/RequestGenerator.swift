@@ -121,7 +121,7 @@ enum ServerType: String, CaseIterable {
     // If you need help, here are the offical instructions: https://www.openhab.org/docs/configuration/apitokens.html")
     var helpText: String {
         let localString = """
-            Please enter the network address(URL) of your openHAB server \
+            Please enter the network address (URL) of your openHAB server \
             (including the port). It usually looks someting like this:\'http://192.168.1.78:8080\'.
 
             Please also enter an API-Token. You can generate a new one in \

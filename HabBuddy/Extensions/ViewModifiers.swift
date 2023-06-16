@@ -35,6 +35,7 @@ struct SettingsBoxModifier: ViewModifier {
         content
             .padding()
             .background(.thinMaterial)
+            .cornerRadius(7)
             .overlay(
                     RoundedRectangle(cornerRadius: 7)
                         .stroke(.gray, lineWidth: 0.5)

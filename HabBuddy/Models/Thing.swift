@@ -28,7 +28,6 @@ struct Thing: Codable, Identifiable {
         }
     }
 
-    // TODO: find a nicer solution
     var viewDetails: String {
         var returnString = ""
 
@@ -41,7 +40,7 @@ struct Thing: Codable, Identifiable {
             if returnString.isEmpty {
                 returnString.append(statusDescriptionString)
             } else {
-                returnString.append(" ")
+                returnString.append(" - ")
                 returnString.append(statusDescriptionString)
             }
         }
