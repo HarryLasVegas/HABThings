@@ -15,6 +15,7 @@
 		4A6577C82A1F777800A1E510 /* HabBuddyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6577C72A1F777800A1E510 /* HabBuddyApp.swift */; };
 		4A6577CC2A1F777900A1E510 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A6577CB2A1F777900A1E510 /* Assets.xcassets */; };
 		4A6577CF2A1F777900A1E510 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A6577CE2A1F777900A1E510 /* Preview Assets.xcassets */; };
+		4A70C67A2A3CD08600E401D4 /* BoardingSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A70C6792A3CD08600E401D4 /* BoardingSheet.swift */; };
 		4A7D77DA2A2A28C9003D4F57 /* ThingsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7D77D92A2A28C9003D4F57 /* ThingsListView.swift */; };
 		4A7D77DC2A2A28D7003D4F57 /* ThingsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7D77DB2A2A28D7003D4F57 /* ThingsListViewModel.swift */; };
 		4A7D77DE2A2A28EA003D4F57 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7D77DD2A2A28EA003D4F57 /* APIService.swift */; };
@@ -39,6 +40,7 @@
 		4A6577CE2A1F777900A1E510 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		4A6577D02A1F777900A1E510 /* HabBuddy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HabBuddy.entitlements; sourceTree = "<group>"; };
 		4A6577D62A1F789A00A1E510 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		4A70C6792A3CD08600E401D4 /* BoardingSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardingSheet.swift; sourceTree = "<group>"; };
 		4A7D77D92A2A28C9003D4F57 /* ThingsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThingsListView.swift; sourceTree = "<group>"; };
 		4A7D77DB2A2A28D7003D4F57 /* ThingsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThingsListViewModel.swift; sourceTree = "<group>"; };
 		4A7D77DD2A2A28EA003D4F57 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 			children = (
 				4A7D77D92A2A28C9003D4F57 /* ThingsListView.swift */,
 				4AA846CE2A2B757E001CE3A5 /* SettingsView.swift */,
+				4A70C6792A3CD08600E401D4 /* BoardingSheet.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -272,6 +275,7 @@
 				4A6577C82A1F777800A1E510 /* HabBuddyApp.swift in Sources */,
 				4A1619362A3086C300216277 /* View.swift in Sources */,
 				4A7D77E02A2A290C003D4F57 /* Thing.swift in Sources */,
+				4A70C67A2A3CD08600E401D4 /* BoardingSheet.swift in Sources */,
 				4A7D77DA2A2A28C9003D4F57 /* ThingsListView.swift in Sources */,
 				4AA846D42A2B7AE1001CE3A5 /* KeyChainManager.swift in Sources */,
 			);
@@ -414,6 +418,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.stephanweber.HabBuddy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -443,6 +448,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.stephanweber.HabBuddy;
 				PRODUCT_NAME = "$(TARGET_NAME)";

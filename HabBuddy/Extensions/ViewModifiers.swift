@@ -81,3 +81,16 @@ struct ColorfulIconLabelStyle: LabelStyle {
         }
     }
 }
+
+// Onboarding Button
+struct IOSButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .frame(width: 200)
+            .padding()
+            .background(Color.blue)
+            .foregroundColor(.white)
+            .cornerRadius(10)
+            .opacity(configuration.isPressed ? 0.5 : 1)
+    }
+}

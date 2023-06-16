@@ -10,10 +10,13 @@ import SwiftUI
 struct ThingsListView: View {
     @StateObject var vm: ThingsListViewModel
     @EnvironmentObject var refreshTimerService: RefreshTimerService
+    @AppStorage("startedBefore") var startedBefore: Bool = false
+    @AppStorage("selectedServerType") var selectedServerType: ServerType = .local
 
     @State private var refreshButtonAnimation = false
     @State private var refreshButtonRotationAngle: Double = 0
     @State private var searchBarIsShown = false
+    @State private var showingBoardingSheet = false
 
     // needed so that the view updates after leaving settings
     // (together with .onchange)
@@ -52,14 +55,27 @@ struct ThingsListView: View {
         .listStyle(.sidebar)
         .task {
             vm.addNotificationObserver()
-            await vm.fetchThings()
             refreshTimerService.startRefreshTimerIfRefreshActivatedInSettings()
+
+            // only fetch things when app has been started before
+            // otherwise no credentials would be present and app would
+            // start with an alert
+            if startedBefore {
+                await vm.fetchThings()
+            } else {
+                showingBoardingSheet = true
+                startedBefore = true
+            }
+            print("on appear - startedBefore: \(startedBefore)")
         }
         .onChange(of: shouldRefresh) { _ in
             Task {
                 await vm.fetchThings()
             }
         }
+        .sheet(isPresented: $showingBoardingSheet) {
+                    BoardingSheet(shouldRefresh: $shouldRefresh)
+                }
     }
 
     // Initializer is needed for passing the EO refreshTimerService to the ViewModel
@@ -185,6 +201,19 @@ extension ThingsListView {
             .help("Settings")
 
             Spacer()
+
+            // Button to reset startedBefore so the OnBording process
+            // start at netxt start
+            #if DEBUG
+            Button {
+                startedBefore = false
+            } label: {
+                Image(systemName: "arrow.counterclockwise.circle")
+            }
+            .iconButtonStyle()
+            .help("Reset startedBefore")
+            Spacer()
+            #endif
 
             Button {
                 NSApp.terminate(nil)
