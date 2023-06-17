@@ -1,6 +1,6 @@
 //
 //  ThingsView.swift
-//  HabBuddy
+//  HABThings
 //
 //  Created by Stephan Weber on 02.06.23.
 //
@@ -60,13 +60,13 @@ struct ThingsListView: View {
             // only fetch things when app has been started before
             // otherwise no credentials would be present and app would
             // start with an alert
+            print("on appear - startedBefore: \(startedBefore)")
             if startedBefore {
                 await vm.fetchThings()
             } else {
                 showingBoardingSheet = true
                 startedBefore = true
             }
-            print("on appear - startedBefore: \(startedBefore)")
         }
         .onChange(of: shouldRefresh) { _ in
             Task {

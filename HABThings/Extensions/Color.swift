@@ -1,6 +1,6 @@
 //
 //  Color.swift
-//  HabBuddy
+//  HABThings
 //
 //  Created by Stephan Weber on 03.06.23.
 //

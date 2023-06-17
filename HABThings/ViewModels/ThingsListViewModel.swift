@@ -1,6 +1,6 @@
 //
 //  ThingsViewModel.swift
-//  HabBuddy
+//  HABThings
 //
 //  Created by Stephan Weber on 02.06.23.
 //

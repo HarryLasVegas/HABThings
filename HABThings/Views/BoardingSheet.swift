@@ -1,6 +1,6 @@
 //
 //  BoardingSheet.swift
-//  HabBuddy
+//  HABThings
 //
 //  Created by Stephan Weber on 16.06.23.
 //
@@ -36,7 +36,7 @@ extension BoardingSheet {
                 .scaledToFit()
                 .frame(width: 150)
 
-            Text("Welcome to HABbuddy!")
+            Text("Welcome to HABThings!")
                 .font(.title)
             Text("Please enter your access data on the next page. You can always change them at any time.")
 

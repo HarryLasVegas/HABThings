@@ -1,6 +1,6 @@
 //
 //  CredentialsTextField.swift
-//  HabBuddy
+//  HABThings
 //
 //  Created by Stephan Weber on 14.06.23.
 //

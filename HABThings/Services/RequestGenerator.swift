@@ -1,6 +1,6 @@
 //
 //  RequestGenerator.swift
-//  HabBuddy
+//  HABThings
 //
 //  Created by Stephan Weber on 13.06.23.
 //
@@ -14,7 +14,7 @@ class RequestGenerator {
     // swiftlint:disable:next function_body_length
     @MainActor func generatedRequest(apiEndpoint: APIEndpoint) throws -> URLRequest {
         let selectedServerType: ServerType = ServerType(
-            rawValue: UserDefaults.standard.string(forKey: "selectedServerType")!
+            rawValue: UserDefaults.standard.string(forKey: "selectedServerType") ?? ""
         ) ?? .local
 
         let credentials = KeyChainManager.shared.getCredentialsFromKeychain()

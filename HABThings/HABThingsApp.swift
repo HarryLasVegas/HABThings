@@ -1,6 +1,6 @@
 //
-//  HabBuddyApp.swift
-//  HabBuddy
+//  HABThingsApp.swift
+//  HABThings
 //
 //  Created by Stephan Weber on 25.05.23.
 //
@@ -9,7 +9,7 @@ import SwiftUI
 import KeychainAccess
 
 @main
-struct HabBuddyApp: App {
+struct HABThingsApp: App {
     @StateObject var refreshTimerService = RefreshTimerService()
 
     var body: some Scene {
@@ -18,7 +18,7 @@ struct HabBuddyApp: App {
             ThingsListView(refreshTimerService: refreshTimerService)
                 .environmentObject(refreshTimerService)
         } label: {
-            Label("HABbuddy", image: "menubar")
+            Label("HABThings", image: "menubar")
                 .labelStyle(.iconOnly)
         }
         .menuBarExtraStyle(.window)

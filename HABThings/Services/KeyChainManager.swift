@@ -1,6 +1,6 @@
 //
 //  KeychainManager.swift
-//  HabBuddy
+//  HABThings
 //
 //  Created by Stephan Weber on 03.06.23.
 //
@@ -11,7 +11,7 @@ import KeychainAccess
 class KeyChainManager {
     static let shared = KeyChainManager()
 
-    private let keyChain = Keychain(service: "de.stephanweber.HabBuddy")
+    private let keyChain = Keychain(service: "de.stephanweber.HABThings")
 
     private init() {}
 

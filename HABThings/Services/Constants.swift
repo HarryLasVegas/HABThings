@@ -1,6 +1,6 @@
 //
 //  Constants.swift
-//  HabBuddy
+//  HABThings
 //
 //  Created by Stephan Weber on 15.06.23.
 //

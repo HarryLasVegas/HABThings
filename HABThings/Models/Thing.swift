@@ -1,15 +1,12 @@
 //
 //  Things.swift
-//  HabBuddy
+//  HABThings
 //
 //  Created by Stephan Weber on 02.06.23.
 //
 
 import Foundation
 import SwiftUI
-
-// Source: http://192.168.178.45:8080/rest/things
-// apiToken: oh.habBuddyToken.LlvKRbWd6AgGjdxH2mbU1VyMFpksF7Wwlin8qjDpCCa9Vuoi2AQKyz9VLyw6XcheKZOLUQvnO3U2zvqmw
 
 struct Thing: Codable, Identifiable {
     let statusInfo: StatusInfo?

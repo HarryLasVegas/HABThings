@@ -1,6 +1,6 @@
 //
 //  SettingsView.swift
-//  HabBuddy
+//  HABThings
 //
 //  Created by Stephan Weber on 03.06.23.
 //
@@ -185,7 +185,7 @@ extension SettingsView {
         VStack(alignment: .leading) {
             VStack {
                 HStack {
-                    Label("Launch HABbuddy on login", systemImage: "ipad.and.arrow.forward")
+                    Label("Launch HABThings on login", systemImage: "ipad.and.arrow.forward")
                         .labelStyle(ColorfulIconLabelStyle(color: .pink))
 
                     Spacer()

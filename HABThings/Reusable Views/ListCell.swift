@@ -1,6 +1,6 @@
 //
 //  ListCell.swift
-//  HabBuddy
+//  HABThings
 //
 //  Created by Stephan Weber on 09.06.23.
 //

@@ -1,6 +1,6 @@
 //
 //  RefreshTimerService.swift
-//  HabBuddy
+//  HABThings
 //
 //  Created by Stephan Weber on 07.06.23.
 //
