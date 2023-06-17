@@ -200,6 +200,15 @@ extension ThingsListView {
             .iconButtonStyle()
             .help("Settings")
 
+            NavigationLink {
+                AboutView()
+            } label: {
+                Image(systemName: "info.circle")
+            }
+            .iconButtonStyle()
+            .help("About")
+            .padding(.leading, 10)
+
             Spacer()
 
             // Button to reset startedBefore so the OnBording process

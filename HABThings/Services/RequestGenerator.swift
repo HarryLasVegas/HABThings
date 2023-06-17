@@ -102,7 +102,7 @@ enum ServerType: String, CaseIterable {
         case .myOpenHAB:
             return "OpenHAB Cloud (myopenhab.org)"
         case .otherCloudInstance:
-            return "Self hosted openHAB cloud service"
+            return "Self hosted openHAB cloud service (experimental)"
         }
     }
 
