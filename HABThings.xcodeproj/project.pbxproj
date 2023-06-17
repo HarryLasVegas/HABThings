@@ -202,7 +202,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 4A6577BF2A1F777800A1E510 /* Build configuration list for PBXProject "HabBuddy" */;
+			buildConfigurationList = 4A6577BF2A1F777800A1E510 /* Build configuration list for PBXProject "HABThings" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -460,7 +460,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4A6577BF2A1F777800A1E510 /* Build configuration list for PBXProject "HabBuddy" */ = {
+		4A6577BF2A1F777800A1E510 /* Build configuration list for PBXProject "HABThings" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4A6577D12A1F777900A1E510 /* Debug */,
