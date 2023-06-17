@@ -14,7 +14,6 @@ struct HABThingsApp: App {
 
     var body: some Scene {
         MenuBarExtra {
-//            ContentView()
             ThingsListView(refreshTimerService: refreshTimerService)
                 .environmentObject(refreshTimerService)
         } label: {
