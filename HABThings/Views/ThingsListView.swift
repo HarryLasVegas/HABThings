@@ -109,7 +109,7 @@ extension ThingsListView {
 
     private var listView: some View {
         List {
-            ForEach(Status.allCases, id: \.rawValue) { status in
+            ForEach(Status.allCases, id: \.self) { status in
                 Section(status.rawValue.uppercased()) {
                     if vm.thingsWithStatusPresent(for: status.rawValue) {
                         ForEach(vm.filteredThings) { thing in
@@ -226,6 +226,7 @@ extension ThingsListView {
 
             Button {
                 NSApp.terminate(nil)
+//                NSApplication.shared.terminate(nil)
             } label: {
                 Image(systemName: "rectangle.portrait.and.arrow.right")
             }

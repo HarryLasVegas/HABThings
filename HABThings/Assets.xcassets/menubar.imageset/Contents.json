@@ -1,7 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "menubar.png",
+      "filename" : "menubar_lightmode.png",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "menubar_darkmode.png",
       "idiom" : "universal"
     }
   ],
