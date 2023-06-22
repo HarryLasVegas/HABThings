@@ -12,27 +12,40 @@ class APIService {
 
     private init() {}
 
-    func getJSON<T: Codable>(dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .deferredToDate,
-                             keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys,
-                             dataDecodingStrategy: JSONDecoder.DataDecodingStrategy = .deferredToData,
-                             apiEndpoint: APIEndpoint)
+    func getJSON<T: Codable> (apiEndpoint: APIEndpoint) async throws -> T {
+        let demoModeIsActivated = UserDefaults.standard.bool(forKey: "demoModeIsActive")
+
+        if !demoModeIsActivated {
+            return try await getJSONfromServer(apiEndpoint: apiEndpoint)
+        } else {
+            return Bundle.main.decode(Constants.demoDataURL)
+        }
+    }
+
+//    private
+//    func getJSONfromDemoData<T: Codable>(dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .deferredToDate,
+//                                         keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys,
+//                                         dataDecodingStrategy: JSONDecoder.DataDecodingStrategy = .deferredToData)
+//                                async throws -> T {
+//        guard let url =
+//
+//
+//
+//                Bundle.main.decode("astronauts.json")
+//
+//
+//
+//
+//                                    return T.self as! T
+//    }
+
+    private func getJSONfromServer<T: Codable>(dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .deferredToDate,
+                                               keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys,
+                                               dataDecodingStrategy: JSONDecoder.DataDecodingStrategy = .deferredToData,
+                                               apiEndpoint: APIEndpoint)
                                 async throws -> T {
 
         do {
-
-//            curl -X 'GET' \
-//              'https://Mydomain.de/rest/things' \
-//            --user  'myname@maildomain.de:MyPassword' \
-//              -H 'accept: application/json' \
-//              -H 'X-OPENHAB-TOKEN: oh.testdeletelater.ABwhfj5x5BT1i7QKzIhgRoxVXYZilzMaX0
-            // qDtueVox6W6W2fA06gGwJhDZePDQMQytVkAoobst9ndWiztmmg'
-//            guard
-//                let request = try? RequestGenerator(keyChainManager: keyChainManager).generatedRequest()
-//            else {
-//                throw error
-//            }
-
-//            do {
             let request = try await RequestGenerator.shared.generatedRequest(apiEndpoint: apiEndpoint)
 
             guard

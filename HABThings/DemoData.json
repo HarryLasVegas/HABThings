@@ -1,0 +1,79 @@
+[
+  {
+    "statusInfo" : {
+      "status" : "ONLINE",
+      "statusDetail" : "NONE"
+    },
+    "label" : "Switch Bathroom"
+  },
+  {
+    "statusInfo" : {
+      "status" : "ONLINE",
+      "statusDetail" : "NONE"
+    },
+    "label" : "Openhab Server"
+  },
+  {
+    "statusInfo" : {
+      "status" : "OFFLINE",
+      "statusDetail" : "NONE"
+    },
+    "label" : "Hue Bridge"
+  },
+  {
+    "statusInfo" : {
+      "status" : "UNKNOWN",
+      "statusDetail" : "NONE"
+    },
+    "label" : "Aqara Sensor"
+  },
+  {
+    "statusInfo" : {
+      "status" : "REMOVED",
+      "statusDetail" : "NONE"
+    },
+    "label" : "deCONZ-Gateway"
+  },
+  {
+    "statusInfo" : {
+      "status" : "UNINITIALIZED",
+      "statusDetail" : "NONE"
+    },
+    "label" : "Temp Sensor Kitchen"
+  },
+  {
+    "statusInfo" : {
+      "status" : "ONLINE",
+      "statusDetail" : "NONE"
+    },
+    "label" : "Aqara5 Pressure"
+  },
+  {
+    "statusInfo" : {
+      "status" : "ONLINE",
+      "statusDetail" : "NONE"
+    },
+    "label" : "Wallpanel Gang Systeminfo"
+  },
+  {
+    "statusInfo" : {
+      "status" : "ONLINE",
+      "statusDetail" : "NONE"
+    },
+    "label" : "OpenWeatherMap Account"
+  },
+  {
+    "statusInfo" : {
+      "status" : "OFFLINE",
+      "statusDetail" : "NONE"
+    },
+    "label" : "Motion Sensor Stairs"
+  },
+  {
+    "statusInfo" : {
+      "status" : "ONLINE",
+      "statusDetail" : "NONE"
+    },
+    "label" : "Motion Sensor Bathroom"
+  }
+]

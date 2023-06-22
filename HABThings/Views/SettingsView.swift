@@ -16,6 +16,7 @@ struct SettingsView: View {
     @AppStorage("selectedRefreshInterval") var selectedRefreshInterval: RefreshIntervalOptions = .seconds20
     @AppStorage("refreshRegularly") var refreshRegularly: Bool = false
     @AppStorage("selectedServerType") var selectedServerType: ServerType = .local
+    @AppStorage("demoModeIsActive") var demoModeIsActive: Bool = false
 
     @State private var launchOnLogin = SMAppService.mainApp.status == .enabled
 
@@ -29,6 +30,8 @@ struct SettingsView: View {
 
     var body: some View {
         VStack {
+            activateDemoDataBox
+
             accessDataBox
 
             refreshBox
@@ -83,6 +86,19 @@ struct SettingsView: View {
  }
 
 extension SettingsView {
+    private var activateDemoDataBox: some View {
+        HStack {
+            Label("Use demo data", systemImage: "timer")
+                .labelStyle(ColorfulIconLabelStyle(color: .purple))
+
+            Spacer()
+
+            Toggle("", isOn: $demoModeIsActive)
+                .toggleStyle(.switch)
+                .labelsHidden()
+        }
+    }
+
     private var accessDataBox: some View {
         VStack(alignment: .leading) {
             Label("Access data", systemImage: "person.badge.key")

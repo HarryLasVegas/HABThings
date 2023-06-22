@@ -23,6 +23,8 @@
 		4A7D77E02A2A290C003D4F57 /* Thing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7D77DF2A2A290C003D4F57 /* Thing.swift */; };
 		4A8611512A38C4B800B4F5DF /* RequestGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8611502A38C4B800B4F5DF /* RequestGenerator.swift */; };
 		4A98B7382A3DC14E00CA1B7C /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A98B7372A3DC14E00CA1B7C /* Color.swift */; };
+		4A9A767A2A44B9C1007ED44F /* DemoData.json in Resources */ = {isa = PBXBuildFile; fileRef = 4A9A76792A44B9C1007ED44F /* DemoData.json */; };
+		4A9A767C2A44D182007ED44F /* Bundle-Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9A767B2A44D182007ED44F /* Bundle-Decodable.swift */; };
 		4AA846CD2A2B3A98001CE3A5 /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA846CC2A2B3A98001CE3A5 /* ViewModifiers.swift */; };
 		4AA846CF2A2B757E001CE3A5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA846CE2A2B757E001CE3A5 /* SettingsView.swift */; };
 		4AA846D42A2B7AE1001CE3A5 /* KeyChainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA846D32A2B7AE0001CE3A5 /* KeyChainManager.swift */; };
@@ -48,6 +50,8 @@
 		4A7D77DF2A2A290C003D4F57 /* Thing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Thing.swift; sourceTree = "<group>"; };
 		4A8611502A38C4B800B4F5DF /* RequestGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestGenerator.swift; sourceTree = "<group>"; };
 		4A98B7372A3DC14E00CA1B7C /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		4A9A76792A44B9C1007ED44F /* DemoData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DemoData.json; sourceTree = "<group>"; };
+		4A9A767B2A44D182007ED44F /* Bundle-Decodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle-Decodable.swift"; sourceTree = "<group>"; };
 		4AA846CC2A2B3A98001CE3A5 /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
 		4AA846CE2A2B757E001CE3A5 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		4AA846D32A2B7AE0001CE3A5 /* KeyChainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainManager.swift; sourceTree = "<group>"; };
@@ -102,6 +106,7 @@
 				4A7D77D42A2A286D003D4F57 /* Models */,
 				4A6577D62A1F789A00A1E510 /* Info.plist */,
 				4A6577C72A1F777800A1E510 /* HABThingsApp.swift */,
+				4A9A76792A44B9C1007ED44F /* DemoData.json */,
 				4A6577CB2A1F777900A1E510 /* Assets.xcassets */,
 				4A6577D02A1F777900A1E510 /* HABThings.entitlements */,
 				4A6577CD2A1F777900A1E510 /* Preview Content */,
@@ -162,6 +167,7 @@
 				4AA846CC2A2B3A98001CE3A5 /* ViewModifiers.swift */,
 				4A1619352A3086C300216277 /* View.swift */,
 				4A98B7372A3DC14E00CA1B7C /* Color.swift */,
+				4A9A767B2A44D182007ED44F /* Bundle-Decodable.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -232,6 +238,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A47878A2A3DCBD0008077FD /* Preview Assets.xcassets in Resources */,
+				4A9A767A2A44B9C1007ED44F /* DemoData.json in Resources */,
 				4A4787892A3DCB57008077FD /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -270,6 +277,7 @@
 				4A47878C2A3DDD84008077FD /* AboutView.swift in Sources */,
 				4AA846CD2A2B3A98001CE3A5 /* ViewModifiers.swift in Sources */,
 				4A2616212A3A3618007C93D2 /* CredentialsTextField.swift in Sources */,
+				4A9A767C2A44D182007ED44F /* Bundle-Decodable.swift in Sources */,
 				4A216DF02A3B66AD0064BA15 /* Constants.swift in Sources */,
 				4A98B7382A3DC14E00CA1B7C /* Color.swift in Sources */,
 				4AB080C62A30F02B00E4701A /* RefreshTimerService.swift in Sources */,
@@ -411,7 +419,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"HABThings/Preview Content\"";
 				DEVELOPMENT_TEAM = 94SBGYCF6F;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -446,7 +454,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"HABThings/Preview Content\"";
 				DEVELOPMENT_TEAM = 94SBGYCF6F;
 				ENABLE_HARDENED_RUNTIME = YES;
