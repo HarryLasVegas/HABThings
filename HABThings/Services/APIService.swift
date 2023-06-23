@@ -15,29 +15,14 @@ class APIService {
     func getJSON<T: Codable> (apiEndpoint: APIEndpoint) async throws -> T {
         let demoModeIsActivated = UserDefaults.standard.bool(forKey: "demoModeIsActive")
 
+        // if demo mode is activated, DemoData.json is decoded and returned
+        // if not, a server connection is established
         if !demoModeIsActivated {
             return try await getJSONfromServer(apiEndpoint: apiEndpoint)
         } else {
-            return Bundle.main.decode(Constants.demoDataURL)
+            return Bundle.main.decode(Constants.demoDataPath)
         }
     }
-
-//    private
-//    func getJSONfromDemoData<T: Codable>(dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .deferredToDate,
-//                                         keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys,
-//                                         dataDecodingStrategy: JSONDecoder.DataDecodingStrategy = .deferredToData)
-//                                async throws -> T {
-//        guard let url =
-//
-//
-//
-//                Bundle.main.decode("astronauts.json")
-//
-//
-//
-//
-//                                    return T.self as! T
-//    }
 
     private func getJSONfromServer<T: Codable>(dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .deferredToDate,
                                                keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys,

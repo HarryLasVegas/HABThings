@@ -30,8 +30,6 @@ struct SettingsView: View {
 
     var body: some View {
         VStack {
-            activateDemoDataBox
-
             accessDataBox
 
             refreshBox
@@ -39,6 +37,7 @@ struct SettingsView: View {
             launchOnLoginBox
         }
         .animation(.easeInOut(duration: 0.3), value: selectedServerType)
+        .animation(.easeInOut(duration: 0.3), value: demoModeIsActive)
         .navigationTitle("Settings")
         .padding(10)
         .task {
@@ -86,27 +85,51 @@ struct SettingsView: View {
  }
 
 extension SettingsView {
-    private var activateDemoDataBox: some View {
-        HStack {
-            Label("Use demo data", systemImage: "timer")
-                .labelStyle(ColorfulIconLabelStyle(color: .purple))
-
-            Spacer()
-
-            Toggle("", isOn: $demoModeIsActive)
-                .toggleStyle(.switch)
-                .labelsHidden()
-        }
-    }
-
     private var accessDataBox: some View {
         VStack(alignment: .leading) {
+
             Label("Access data", systemImage: "person.badge.key")
                 .labelStyle(ColorfulIconLabelStyle(color: .blue))
                 .padding(.bottom)
 
+            demoModeToggle
+
+            Divider()
+                .padding(5)
+
+            if !demoModeIsActive {
+                serverTypeSegment
+            }
+        }
+        .textFieldStyle(.roundedBorder)
+        .settingsBoxStyle()
+    }
+
+    private var demoModeToggle: some View {
+        VStack {
+            HStack {
+                Label("Demo mode", systemImage: "rectangle.inset.filled.and.person.filled")
+                    .labelStyle(.titleAndIcon)
+                    .padding(.trailing)
+
+                Toggle("", isOn: $demoModeIsActive)
+                    .toggleStyle(.switch)
+                    .labelsHidden()
+                Spacer()
+            }
+            Text("""
+                By activating demo mode, the Things list is filled with sample \
+                data. No connection with a real openHAB server will be made.
+                """)
+            .foregroundColor(.secondary)
+            .font(.callout)
+        }
+    }
+
+    private var serverTypeSegment: some View {
+        VStack(alignment: .leading) {
             VStack(alignment: .leading, spacing: 5) {
-                Text("Type of openHAB server")
+                Text("Select type of openHAB server")
                 Picker("", selection: $selectedServerType) {
                     ForEach(ServerType.allCases, id: \.self) {
                         Text($0.serverTypeViewString)
@@ -143,14 +166,12 @@ extension SettingsView {
 
             helpTextSegment
         }
-        .textFieldStyle(.roundedBorder)
-        .settingsBoxStyle()
     }
 
     private var helpTextSegment: some View {
         Text(LocalizedStringKey(selectedServerType.helpText))
             .foregroundColor(.secondary)
-            .font(.subheadline)
+            .font(.callout)
             .padding(.bottom)
     }
 

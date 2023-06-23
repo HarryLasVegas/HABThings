@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4A1619362A3086C300216277 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1619352A3086C300216277 /* View.swift */; };
 		4A216DF02A3B66AD0064BA15 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A216DEF2A3B66AD0064BA15 /* Constants.swift */; };
 		4A2616212A3A3618007C93D2 /* CredentialsTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2616202A3A3618007C93D2 /* CredentialsTextField.swift */; };
 		4A29F4E32A3377D4006B8862 /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A29F4E22A3377D4006B8862 /* ListCell.swift */; };
@@ -32,7 +31,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4A1619352A3086C300216277 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		4A216DEF2A3B66AD0064BA15 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		4A2616202A3A3618007C93D2 /* CredentialsTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsTextField.swift; sourceTree = "<group>"; };
 		4A29F4E22A3377D4006B8862 /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
@@ -165,7 +163,6 @@
 			isa = PBXGroup;
 			children = (
 				4AA846CC2A2B3A98001CE3A5 /* ViewModifiers.swift */,
-				4A1619352A3086C300216277 /* View.swift */,
 				4A98B7372A3DC14E00CA1B7C /* Color.swift */,
 				4A9A767B2A44D182007ED44F /* Bundle-Decodable.swift */,
 			);
@@ -285,7 +282,6 @@
 				4A7D77DC2A2A28D7003D4F57 /* ThingsListViewModel.swift in Sources */,
 				4A8611512A38C4B800B4F5DF /* RequestGenerator.swift in Sources */,
 				4A6577C82A1F777800A1E510 /* HABThingsApp.swift in Sources */,
-				4A1619362A3086C300216277 /* View.swift in Sources */,
 				4A7D77E02A2A290C003D4F57 /* Thing.swift in Sources */,
 				4A70C67A2A3CD08600E401D4 /* BoardingSheet.swift in Sources */,
 				4A7D77DA2A2A28C9003D4F57 /* ThingsListView.swift in Sources */,
