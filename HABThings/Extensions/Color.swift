@@ -22,4 +22,7 @@ struct ColorTheme {
     let removed = Color.gray
 
     let statusForeground = Color.white
+
+    let systemGroupedBackground = Color(NSColor.windowBackgroundColor)
+    let secondarySystemGroupedBackground = Color(NSColor.controlBackgroundColor)
 }

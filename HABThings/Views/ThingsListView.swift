@@ -197,7 +197,7 @@ extension ThingsListView {
             } label: {
                 Image(systemName: "gear")
             }
-            .iconButtonStyle()
+            .bottomButtonStyle()
             .help("Settings")
 
             NavigationLink {
@@ -205,7 +205,7 @@ extension ThingsListView {
             } label: {
                 Image(systemName: "info.circle")
             }
-            .iconButtonStyle()
+            .bottomButtonStyle()
             .help("About")
             .padding(.leading, 10)
 
@@ -218,6 +218,7 @@ extension ThingsListView {
                 startedBefore = false
             } label: {
                 Image(systemName: "arrow.counterclockwise.circle")
+                    .bottomButtonStyle()
             }
             .iconButtonStyle()
             .help("Reset startedBefore")
@@ -228,23 +229,23 @@ extension ThingsListView {
                 NSApp.terminate(nil)
 //                NSApplication.shared.terminate(nil)
             } label: {
-                Image(systemName: "rectangle.portrait.and.arrow.right")
+                Label("Quit", systemImage: "rectangle.portrait.and.arrow.right")
             }
-            .iconButtonStyle()
-            .help("Quit")
+            .bottomButtonStyle()
+            .help("Quit HABThings")
         }
         .padding(10)
-        .background(.ultraThickMaterial)
+        .background(.thickMaterial)
     }
 
     enum FocusField: Hashable {
         case searchField
       }
+}
 
-    struct ThingsListView_Previews: PreviewProvider {
-        static var previews: some View {
-            let refreshTimerService = RefreshTimerService()
-            ThingsListView(refreshTimerService: refreshTimerService)
-        }
+struct ThingsListView_Previews: PreviewProvider {
+    static var previews: some View {
+        let refreshTimerService = RefreshTimerService()
+        ThingsListView(refreshTimerService: refreshTimerService)
     }
 }

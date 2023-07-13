@@ -2,7 +2,7 @@
 //  Bundle-Decodable.swift
 //  HABThings
 //
-//  Created by Stephan Weber on 22.06.23.
+//  Written by Paul Hudson, hackingswithswift.com
 //
 import Foundation
 

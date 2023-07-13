@@ -36,8 +36,8 @@ struct SettingsView: View {
 
             launchOnLoginBox
         }
-        .animation(.easeInOut(duration: 0.3), value: selectedServerType)
-        .animation(.easeInOut(duration: 0.3), value: demoModeIsActive)
+        .animation(.easeInOut(duration: 0.5), value: selectedServerType)
+        .animation(.easeInOut(duration: 0.5 ), value: demoModeIsActive)
         .navigationTitle("Settings")
         .padding(10)
         .task {

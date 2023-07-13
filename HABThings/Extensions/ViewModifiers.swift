@@ -65,6 +65,38 @@ extension View {
     }
 }
 
+// Bottom buttons
+struct BottomButtonsStyle: ButtonStyle {
+    var foregroundColor: Color
+    var backgroundColor: Color
+    var pressedColor: Color
+
+    func makeBody(configuration: Self.Configuration) -> some View {
+        configuration.label
+          .padding([.top, .bottom], 5)
+          .padding([.leading, .trailing])
+          .foregroundColor(foregroundColor)
+          .background(configuration.isPressed ? pressedColor : backgroundColor)
+          .cornerRadius(5)
+    }
+}
+
+extension View {
+    func bottomButtonStyle(
+        foregroundColor: Color = .secondary,
+        backgroundColor: Color = Color.theme.systemGroupedBackground.opacity(0.5),
+        pressedColor: Color = .gray.opacity(0.5)
+      ) -> some View {
+        self.buttonStyle(
+            BottomButtonsStyle(
+            foregroundColor: foregroundColor,
+            backgroundColor: backgroundColor,
+            pressedColor: pressedColor
+          )
+        )
+      }
+}
+
 // MARK: Labels with tinted labels
 struct ColorfulIconLabelStyle: LabelStyle {
     var color: Color
